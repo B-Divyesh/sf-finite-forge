@@ -36,7 +36,7 @@ export function runProgram(stock: Stock, program: Action[], boosts: Action[], ow
 
 export function challengeFor(plan: number, shift: number, owned: ToolId[]): Challenge {
   const index = globalShiftIndex(plan, shift);
-  const slots = plan === 1 ? 2 : plan <= 3 ? 3 : 4;
+  const slots = plan + 1;
   const stock = { ore: 2 + ((index + plan) % 3), parts: 2 + ((index * 2 + plan) % 3), charge: (index + plan) % 2 };
   const boosts = Array.from({ length: slots }, (_, slot) => actions[(index + plan + slot * 2) % actions.length]);
   const solution = Array.from({ length: slots }, (_, slot) => {

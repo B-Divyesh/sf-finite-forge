@@ -10,7 +10,7 @@
 | Progress stays in this browser | 5 | pass |
 | Match each order, choose reset tools, and finish the beacon. | 10 | pass |
 | Compare the starting stock, exact target, and slot bonuses. | 9 | pass |
-| Choose two to four actions. | 5 | pass |
+| Choose two to six actions. | 5 | pass |
 | Revise the projection before running it. | 6 | pass |
 | Solve every shift, pick one tool, and complete plan five. | 10 | pass |
 | It has no idle timers, offline income, or endless prestige layers. | 11 | pass |

@@ -65,7 +65,7 @@ The campaign has 30 deterministic planning shifts across five plans: 4, 5, 6,
 7, then 8. A shift shows starting stock, an exact order, and a two-to-four-slot
 forecast. Players program mine, shape, and charge actions, inspect the result,
 and revise before committing. Early shifts use two slots; later shifts use
-four. Three missed orders lose a plan without granting a tool, and retry keeps
+six. Three missed orders lose a plan without granting a tool, and retry keeps
 earlier tools.
 
 Each completed plan offers a real choice among Bellows (more ore), Pattern

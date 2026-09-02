@@ -1,6 +1,6 @@
 {
   "url": "http://127.0.0.1:4173",
-  "loadMs": 550,
+  "loadMs": 545,
   "errors": [],
   "a11y": {
     "title": "Finite Forge — Plan a beacon campaign",
@@ -9,6 +9,6 @@
     "main": true,
     "imgsMissingAlt": 0,
     "buttonsUnlabeled": 0,
-    "textLength": 1429
+    "textLength": 1428
   }
 }
