@@ -2,31 +2,32 @@
 
 | Sentence | Words | Result |
 |---|---:|---|
-| Build a beacon before sunset. | 5 | pass |
-| For reset fans who want one complete campaign on a phone. | 11 | pass |
-| Loads plan three with stocked materials. | 6 | pass |
-| 24 visible production ticks | 4 | pass |
+| Plan a beacon campaign. | 4 | pass |
+| For reset fans who want one thoughtful game with a clear ending. | 11 | pass |
+| Opens plan three with two tools. | 6 | pass |
+| 30 planning shifts across five plans | 6 | pass |
+| About 30–45 minutes for one campaign | 6 | pass |
 | Progress stays in this browser | 5 | pass |
-| Five plans, 63 actions on the shortest path | 8 | pass |
-| Plan each production tick. | 4 | pass |
-| The beacon ends the campaign. | 5 | pass |
-| Mine ore, shape parts, then charge the beacon. | 8 | pass |
-| Each completed plan adds one useful tool. | 7 | pass |
-| Four tools lead into a fifth final plan. | 8 | pass |
-| It has no offline income or endless prestige layers. | 9 | pass |
-| Your progress is stored only in this browser. | 9 | pass |
-| $0. | 1 | pass |
+| Match each order, choose reset tools, and finish the beacon. | 10 | pass |
+| Compare the starting stock, exact target, and slot bonuses. | 9 | pass |
+| Choose two to four actions. | 5 | pass |
+| Revise the projection before running it. | 6 | pass |
+| Solve every shift, pick one tool, and complete plan five. | 10 | pass |
+| It has no idle timers, offline income, or endless prestige layers. | 11 | pass |
+| Progress changes only when you act. | 6 | pass |
 | All five plans are available now. | 6 | pass |
 | No checkout is required. | 4 | pass |
 
-No sentence contains a banned word.
+No sentence exceeds 22 words or contains a banned word.
 
 ## Terminology
 
 | Concept | Product word |
 |---|---|
-| A playthrough | forge plan |
-| The end objective | beacon |
-| A player operation | production tick |
+| The full playthrough | campaign |
+| One reset cycle | plan |
+| One material puzzle | shift |
+| A queued operation | action |
+| The exact material result | order |
 | A persistent improvement | tool |
-| Starting over | reset |
+| The end objective | beacon |

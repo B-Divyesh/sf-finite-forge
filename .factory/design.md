@@ -34,10 +34,12 @@ generic cards.
 
 ## Interaction and motion
 
-The current production tick travels through three connected stations; each
-successful action adds one small 180 ms pulse. No motion carries game state.
-With reduced motion, markers update instantly and all transitions stop. The
-game offers persistent motion and sound switches; sound is off by default.
+Each chosen program action enters a numbered blueprint slot with one small
+180 ms marking motion. Forecast, projected stock, and exact target remain
+visible together so planning does not depend on memory or color. No motion
+carries game state. With reduced motion, markers update instantly and all
+transitions stop. The game offers persistent motion and sound switches; sound
+is off by default.
 
 ## Illustration plan and provenance
 
@@ -59,9 +61,17 @@ prompt sidecar live in `public/assets`; its optimized WebP is used at runtime.
 
 ## Difficulty curve
 
-Runs have 24 production ticks. The first is deliberately roomy. Each completed
-plan adds exactly one selected tool: Bellows (ore), Pattern (parts), Lens
-(charge), or Sundial (two-tick deadline extension). A lost plan adds nothing.
-Four earned tools lead into a fifth final plan; only completing that fifth plan
-lights the final beacon. The shortest successful path is 63 production actions.
-The pressure is the visible tick budget, never a real-time timer.
+The campaign has 30 deterministic planning shifts across five plans: 4, 5, 6,
+7, then 8. A shift shows starting stock, an exact order, and a two-to-four-slot
+forecast. Players program mine, shape, and charge actions, inspect the result,
+and revise before committing. Early shifts use two slots; later shifts use
+four. Three missed orders lose a plan without granting a tool, and retry keeps
+earlier tools.
+
+Each completed plan offers a real choice among Bellows (more ore), Pattern
+(more parts), Lens (more charge), and Sundial (one extra mistake). Tool order
+changes later numeric targets and risk tolerance. Four chosen tools lead into
+the fifth final plan; only its eighth solved shift lights the beacon. Thirty
+short reasoning problems, resets, and tool choices target a 30–45 minute first
+campaign. The game never pads that time with cooldowns, real-time gates, or
+idle production. A deterministic scripted solver keeps end-to-end QA practical.
