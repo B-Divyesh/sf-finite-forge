@@ -22,8 +22,8 @@ The previous release blockers were repaired:
 - All checked navigation, settings, demo, form-equivalent, and footer targets
   are at least 44 px high at 390 px.
 - `public/staticwebapp.config.json` is copied into `dist/`; it sets the CSP,
-  immutable `/assets/*` cache headers, and an HTTP 404 rewrite to the dedicated
-  `/404.html` page.
+  immutable `/assets/*` cache headers, explicit valid-route rewrites, and an
+  HTTP 404 rewrite to the dedicated `/404.html` page.
 
 The public claim registry now includes the final ending, price availability,
 exact shortest campaign path (63 actions), pointer/M/S/C input, tick budget,

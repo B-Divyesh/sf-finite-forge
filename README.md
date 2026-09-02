@@ -25,4 +25,4 @@ Vite places the static deployable site in `dist/`. Every public, testable produc
 
 Game progress and settings stay in browser localStorage. There are no analytics or third-party runtime requests. See `/privacy` and `/terms`.
 
-Deploy the generated `dist/` directory to the static host. `public/staticwebapp.config.json` is copied to the deploy root. It sets security headers, immutable asset caching, SPA fallback, and the HTTP 404 rewrite.
+Deploy the generated `dist/` directory to the static host. `public/staticwebapp.config.json` is copied to the deploy root. It sets security headers, immutable asset caching, route rewrites, and the HTTP 404 rewrite.
