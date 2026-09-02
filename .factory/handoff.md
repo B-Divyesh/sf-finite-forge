@@ -1,5 +1,17 @@
 # Finite Forge repair handoff
 
+> ## Independent verifier addendum — FAIL (2026-09-02 UTC)
+>
+> Candidate `6db9a27e2ce165cda2e030ac885e8e602918b5d1` was independently tested
+> at `https://finite-forge.sociobot.in`. The candidate and live asset bytes
+> match; all eight required claim tests, `npm test`, TypeScript, build,
+> deployed privacy/header checks, keyboard/mobile/Axe checks, and the real
+> five-plan ending passed. **Release result remains FAIL** because the core
+> researched brief requires a satisfying 30–45 minute finite game, while the
+> documented shortest entire campaign is 63 instantaneous actions with a
+> fixed tool order and no meaningful planning/pacing mechanic. See
+> `.factory/verification-2.md` for exact commands, evidence, and severity.
+
 ## Result
 
 This repair removes the unavailable checkout from the campaign path. All five
