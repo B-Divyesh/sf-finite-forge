@@ -1,0 +1,10 @@
+{
+  "date": "2026-09-02",
+  "url": "http://127.0.0.1:4173/demo",
+  "viewport": "390x844",
+  "cpuThrottle": 4,
+  "sampledFrames": 300,
+  "durationMs": 4999.8,
+  "averageFps": 60.00240009600384,
+  "p95FrameIntervalMs": 16.800000000000182
+}

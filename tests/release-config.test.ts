@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 describe('static deployment contract', () => {
-  it('ships the host configuration with CSP, immutable assets, and a true 404 rewrite', () => {
+  it('@claim:response-policy ships CSP, immutable assets, and a true 404 rewrite', () => {
     const source = readFileSync(resolve('staticwebapp.config.json'), 'utf8');
     const shipped = readFileSync(resolve('public/staticwebapp.config.json'), 'utf8');
     expect(shipped).toBe(source);

@@ -34,12 +34,12 @@ generic cards.
 
 ## Interaction and motion
 
-Each chosen program action enters a numbered blueprint slot with one small
-180 ms marking motion. Forecast, projected stock, and exact target remain
-visible together so planning does not depend on memory or color. No motion
-carries game state. With reduced motion, markers update instantly and all
-transitions stop. The game offers persistent motion and sound switches; sound
-is off by default.
+Each production action updates the material drawing with one small 180 ms
+marking motion. The 24-part sunset rail, remaining tick count, current stock,
+charge target, and next six sunlight bonuses remain visible together. Planning
+does not depend on memory or color. No motion carries game state. With reduced
+motion, materials update instantly and all transitions stop. The game offers
+persistent motion and sound switches; sound is off by default.
 
 ## Illustration plan and provenance
 
@@ -57,21 +57,21 @@ with the factory image deployment from this prompt:
 > logo, no people, no copyrighted objects.
 
 Generated image provenance is disclosed in the footer. The source PNG and its
-prompt sidecar live in `public/assets`; its optimized WebP is used at runtime.
+prompt sidecar live in `assets/src`; its optimized WebP is used at runtime.
 
 ## Difficulty curve
 
-The campaign has 30 deterministic planning shifts across five plans: 4, 5, 6,
-7, then 8. A shift shows starting stock, an exact order, and a two-to-four-slot
-forecast. Players program mine, shape, and charge actions, inspect the result,
-and revise before committing. Early shifts use two slots; later shifts use
-six. Three missed orders lose a plan without granting a tool, and retry keeps
-earlier tools.
+The campaign has five deterministic forge runs. Each run gives the player
+exactly 24 production ticks before sunset. Every mine, shape, or charge action
+spends one tick. The 24-part rail and numeric countdown show that budget at all
+times. An unfinished beacon loses at tick 24; retry resets that run without
+granting a tool.
 
-Each completed plan offers a real choice among Bellows (more ore), Pattern
-(more parts), Lens (more charge), and Sundial (one extra mistake). Tool order
-changes later numeric targets and risk tolerance. Four chosen tools lead into
-the fifth final plan; only its eighth solved shift lights the beacon. Thirty
-short reasoning problems, resets, and tool choices target a 30–45 minute first
-campaign. The game never pads that time with cooldowns, real-time gates, or
-idle production. A deterministic scripted solver keeps end-to-end QA practical.
+Sunlight moves between stations on a deterministic schedule. Matching the
+sunlit station adds one unit, and the next six bonuses remain visible for
+planning. Charge targets rise through 12, 14, 17, 19, and 36. Each successful
+run offers a remaining tool: Bellows adds ore, Pattern plate adds parts,
+Focusing lens adds charge, and Stock bin adds starting materials. Every tool
+order has a winning route, while inefficient actions can reach sunset. Four
+chosen tools lead into the fifth and final beacon. A deterministic solver
+drives the title-to-ending, loss, retry, and restart regression tests.
