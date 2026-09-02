@@ -1,0 +1,10 @@
+{
+  "url": "https://finite-forge.sociobot.in/demo",
+  "viewport": "390x844",
+  "cpu_throttle": 4,
+  "frames": 301,
+  "elapsed_ms": 4999.7,
+  "fps": 60.0036,
+  "p95_frame_ms": 16.8,
+  "max_frame_ms": 16.8
+}

@@ -1,0 +1,14 @@
+{
+  "url": "https://finite-forge.sociobot.in",
+  "loadMs": 581,
+  "errors": [],
+  "a11y": {
+    "title": "Finite Forge — Build a beacon before sunset",
+    "lang": "en",
+    "h1": 1,
+    "main": true,
+    "imgsMissingAlt": 0,
+    "buttonsUnlabeled": 0,
+    "textLength": 1552
+  }
+}
