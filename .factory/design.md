@@ -59,8 +59,9 @@ prompt sidecar live in `public/assets`; its optimized WebP is used at runtime.
 
 ## Difficulty curve
 
-Runs have 24 production ticks. The first is deliberately roomy. Each reset
-adds exactly one selected tool: Bellows (ore), Pattern (parts), Lens (charge),
-or Sundial (two-tick deadline extension). Four earned tools finish the campaign
-in five short runs. The pressure is the visible tick budget, never a real-time
-timer.
+Runs have 24 production ticks. The first is deliberately roomy. Each completed
+plan adds exactly one selected tool: Bellows (ore), Pattern (parts), Lens
+(charge), or Sundial (two-tick deadline extension). A lost plan adds nothing.
+Four earned tools lead into a fifth final plan; only completing that fifth plan
+lights the final beacon. The shortest successful path is 63 production actions.
+The pressure is the visible tick budget, never a real-time timer.

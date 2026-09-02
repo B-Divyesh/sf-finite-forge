@@ -1,0 +1,15 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { describe, expect, it } from 'vitest';
+
+describe('static deployment contract', () => {
+  it('ships the host configuration with CSP, immutable assets, and a true 404 rewrite', () => {
+    const source = readFileSync(resolve('staticwebapp.config.json'), 'utf8');
+    const shipped = readFileSync(resolve('public/staticwebapp.config.json'), 'utf8');
+    expect(shipped).toBe(source);
+    const config = JSON.parse(source) as { globalHeaders: Record<string, string>; routes: Array<{ route: string; headers: Record<string, string> }>; responseOverrides: Record<string, { rewrite: string }> };
+    expect(config.globalHeaders['Content-Security-Policy']).toContain("frame-ancestors 'none'");
+    expect(config.routes).toContainEqual({ route: '/assets/*', headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } });
+    expect(config.responseOverrides['404']).toEqual({ rewrite: '/404.html' });
+  });
+});

@@ -1,59 +1,75 @@
-# Finite Forge verification handoff — FAIL
-
-Candidate `6ad408f115c0a76cd8364db4a362833545f295ca` was independently tested at
-`https://finite-forge.sociobot.in` on 2026-09-02 UTC. The live HTML, JS, CSS,
-and hero image match the candidate build byte for byte.
+# Finite Forge repair handoff
 
 ## Result
 
-**FAIL — do not release this candidate.**
+This repair removes the unavailable checkout from the campaign path. All five
+plans are included locally for $0, and a normal new campaign now reaches
+**Final beacon lit** only after its fifth completed plan.
 
-The normal game flow cannot reach the campaign ending. After two completed
-plans it requires a license, while the advertised Sociobot checkout returns
-HTTP 404. The header Demo link is also unsafe: it displays `/demo` without
-entering demo mode and writes actions to `finite-forge:v1`.
+The previous release blockers were repaired:
 
-Other release findings:
+- A loss restarts the same plan and earns no tool.
+- Four earned tools start the fifth plan; that plan, rather than plan four,
+  triggers the ending.
+- `/demo`, `?demo=1`, the header Demo link, and the first-screen action use an
+  isolated `demo:finite-forge:v1` namespace. The demo is seeded at plan three
+  with Bellows, a Pattern plate, 2 ore, 2 parts, and 2 charge.
+- Motion now controls board pulse styling. Sound now uses a short Web Audio
+  cue only after a production gesture. Both settings persist. The settings
+  panel respects its `hidden` and `aria-expanded` state.
+- Routes set title, description, Open Graph title/description, canonical URL,
+  destination scroll, and focus. The skip link focuses `main`.
+- All checked navigation, settings, demo, form-equivalent, and footer targets
+  are at least 44 px high at 390 px.
+- `public/staticwebapp.config.json` is copied into `dist/`; it sets the CSP,
+  immutable `/assets/*` cache headers, and an HTTP 404 rewrite to the dedicated
+  `/404.html` page.
 
-- The demo starts with an empty board, not sample data.
-- Public duration, pricing, input, and final-ending claims are missing from
-  `.factory/claims.json`; the listed end-screen test stops at an intermediate
-  reset panel.
-- A loss grants a new tool despite copy saying completed plans do so.
-- The final panel is reached after four active plans while claiming five.
-- Motion and sound settings persist but do not affect the game; the panel is
-  visible even while its button reports `aria-expanded="false"`.
-- Production has no CSP, hashed assets cache for only 30 seconds, and the
-  designed 404 responds with status 200.
-- SPA section scrolling/focus and several 44 px touch targets fail the stated
-  accessibility contract.
+The public claim registry now includes the final ending, price availability,
+exact shortest campaign path (63 actions), pointer/M/S/C input, tick budget,
+local persistence, no offline income, and demo request privacy.
 
-## Verification that passed
+## Verification
 
-- All six claim commands pass after `npm ci`.
-- `npm test`: 4 unit + 7 browser tests pass.
-- `npx tsc --noEmit` and `npm run build` pass; `dist/` is produced.
-- Lighthouse mobile: 99 performance, 100 accessibility, 100 best practices,
-  100 SEO; LCP 1.1 s and CLS 0.
-- Axe found no serious/critical issues on all routes tested.
-- 390 px touch play, M/S/C keyboard play, loss/recovery, deadline win,
-  persistence, restart, reduced motion, and direct demo storage isolation work.
-- Demo gameplay sends only same-origin requests and logs no page/console errors.
-- Measured 60.18 fps over five seconds with 4× CPU throttling.
-- License verification rate limit allows 30 immediate requests; request 31
-  returned 429 with `Retry-After: 4`.
-
-Full reproduction steps, hashes, metrics, and evidence paths are in
-`.factory/verification.md`. No product code was changed during verification.
-
-## Re-run
+Run from a clean install:
 
 ```sh
 npm ci
 npm test
 npx tsc --noEmit
 npm run build
+npm audit --omit=dev
 ```
 
-Then verify the live checkout and play from a clean `/demo` context through
-the genuine final campaign screen without pre-seeding license state.
+Observed on 2026-09-02 UTC:
+
+- `npm test`: PASS — 6 Vitest tests and 13 Chromium browser tests.
+- All eight individual claim commands in `.factory/claims.json`: PASS.
+- `npx tsc --noEmit`: PASS.
+- `npm run build`: PASS. `dist/` contains `staticwebapp.config.json`,
+  `404.html`, hashed JS/CSS, and the original hero asset.
+- Build sizes: JS 12.35 KB raw / 4.84 KB gzip; CSS 7.30 KB raw / 2.27 KB gzip;
+  hero WebP 27.95 KB.
+- Browser checks cover desktop and 390×844 mobile, keyboard (including the
+  skip link), pointer/M/S/C production, seeded-demo isolation, loss recovery,
+  the fifth-plan ending, settings persistence/effects, route focus/scroll,
+  metadata, mobile targets, and Axe serious/critical violations on `/`,
+  `/demo`, `/privacy`, `/terms`, and an unknown route.
+- `npm audit --omit=dev`: PASS — 0 production vulnerabilities.
+
+I also visually inspected the desktop landing page and the 390 px seeded-demo
+board. The mobile board shows its stocked plan and production controls without
+requiring setup.
+
+## Deployment and known gaps
+
+The artifact remains a Vite static browser game deployed from `dist/`. No
+product infrastructure, DNS, billing, or external service was changed. The
+checkout integration was deliberately removed because its registered endpoint
+was unavailable; the complete campaign is now honestly included rather than
+claiming a paid path that cannot complete.
+
+Push this commit to `main` to use the repository's static deployment flow.
+After deployment, re-check `/demo`, `/missing-plan` (HTTP 404), the CSP and
+immutable asset headers, and live build identity. There are no known product
+gaps in the repaired local artifact.
