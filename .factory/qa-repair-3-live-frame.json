@@ -1,0 +1,10 @@
+{
+  "date": "2026-09-02",
+  "url": "https://finite-forge.sociobot.in/demo",
+  "viewport": "390x844",
+  "cpuThrottle": 4,
+  "sampledFrames": 300,
+  "durationMs": 4999.8,
+  "averageFps": 60.00240009600384,
+  "p95FrameIntervalMs": 16.700000000000728
+}
