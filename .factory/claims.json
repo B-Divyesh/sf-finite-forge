@@ -1,0 +1,8 @@
+[
+  {"id":"reaches-end-screen","claim":"A completed forge run reaches the beacon-ready end screen.","where":"game board","test":"npx playwright test --grep @claim:reaches-end-screen","sandbox":"fresh browser context at /demo; scripted touch controls"},
+  {"id":"restart-resets-state","claim":"A new forge plan starts with empty production stores.","where":"reset panel","test":"npx playwright test --grep @claim:restart-resets-state","sandbox":"fresh browser context at /demo; complete then reset"},
+  {"id":"tick-budget","claim":"The forge has 24 visible production ticks.","where":"landing facts and game board","test":"npx playwright test --grep @claim:tick-budget","sandbox":"fresh browser context at /demo"},
+  {"id":"local-progress","claim":"Progress stays in this browser.","where":"landing facts","test":"npx playwright test --grep @claim:local-progress","sandbox":"fresh browser context at /demo; take an action and reload"},
+  {"id":"no-offline-income","claim":"The forge has no offline income.","where":"what the forge does not do","test":"npx playwright test --grep @claim:no-offline-income","sandbox":"fresh browser context at /demo; wait with an empty board"},
+  {"id":"local-only","claim":"Demo data makes no requests away from the product.","where":"privacy page","test":"npx playwright test --grep @claim:local-only","sandbox":"fresh browser context at /demo; record requests through an action"}
+]

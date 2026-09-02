@@ -1,0 +1,14 @@
+.hero-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 470px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-art figcaption { margin: 12px 6px 4px; }
+
+@media (max-width: 640px) {
+  .hero-art { display: none; }
+}
