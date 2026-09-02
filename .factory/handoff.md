@@ -69,7 +69,15 @@ checkout integration was deliberately removed because its registered endpoint
 was unavailable; the complete campaign is now honestly included rather than
 claiming a paid path that cannot complete.
 
-Push this commit to `main` to use the repository's static deployment flow.
-After deployment, re-check `/demo`, `/missing-plan` (HTTP 404), the CSP and
-immutable asset headers, and live build identity. There are no known product
-gaps in the repaired local artifact.
+Commit `53f397f` was pushed to `main` and deployed to the product-owned Static
+Web App production environment on 2026-09-02 UTC. Live verification found:
+
+- `https://finite-forge.sociobot.in/` matches the local `dist/index.html`
+  SHA-256: `be0fe8b1ae270476c68aaeb6d119d8cc919f58d1ce0cdfc1cb53c3bc6940efa5`.
+- `/demo` returns 200 with title `Demo — Finite Forge`, the demo banner, only
+  the demo storage key, one h1, and no console errors at 390×844.
+- `/missing-plan` returns HTTP 404 and the designed not-found page.
+- The live CSP is present and the hashed JavaScript asset is served with
+  `Cache-Control: public, max-age=31536000, immutable`.
+
+There are no known product gaps in the repaired artifact.
