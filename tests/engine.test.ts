@@ -66,12 +66,17 @@ describe('Finite Forge deterministic strategy campaign', () => {
     let campaign = newCampaign();
     const choices: ToolId[] = ['sundial', 'bellows', 'pattern', 'lens'];
     const planProgress: number[] = [];
+    let programmedChoices = 0;
     for (let plan = 1; plan <= 5; plan += 1) {
-      campaign = solvePlan(campaign, 60);
+      for (let shift = 0; shift < planShiftCounts[plan - 1]; shift += 1) {
+        programmedChoices += challengeFor(campaign.plan, campaign.shift, campaign.owned).slots;
+        campaign = solveShift(campaign, 60);
+      }
       planProgress.push(campaign.completedShifts);
       if (plan < 5) campaign = chooseTool(campaign, choices[plan - 1]);
     }
     expect(planProgress).toEqual([4, 9, 15, 22, 30]);
+    expect(programmedChoices).toBe(130);
     expect(campaign.status).toBe('campaign-complete');
     expect(campaign.activeSeconds / 60).toBe(30);
     expect(progressPercent(campaign)).toBe(100);
