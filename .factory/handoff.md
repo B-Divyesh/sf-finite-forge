@@ -1,4 +1,31 @@
-# Finite Forge repair handoff
+# Finite Forge verification handoff
+
+## Result: FAIL
+
+Independent verification on 2026-09-02 UTC tested commit
+`d3846bac91cdf44fb34e6dd5d1d62d63093cfd87` and
+<https://finite-forge.sociobot.in>. The deployed HTML, JS, and CSS match the
+candidate build byte-for-byte, and automated/local/live functional checks
+otherwise pass.
+
+Release is blocked because the game does not deliver the researched brief’s
+core loop: it implements 30 untimed planning shifts, while the brief requires
+24 production ticks before a sunset deadline. There is no deadline state or
+deadline loss condition. Required tagged game claims for restart reset,
+settings persistence, and measured 60 fps are also missing.
+
+All eight listed claim commands passed locally after `npm ci`; `npm test`
+(5 Vitest + 14 Playwright), typecheck, lint, and production build passed.
+Live deterministic gameplay reached the real ending; loss/retry, tool choice,
+settings persistence, keyboard/pointer input, mobile/focus/reduced motion, and
+Axe serious/critical scans passed. Live demo request logging found no
+cross-origin requests or console/page errors. A 390 px 4x-CPU-throttled sample
+measured 60.20 fps over 300 frames.
+
+See `.factory/verification-3.md` for exact commands, hashes, headers,
+evidence, all findings, and remediation.
+
+## Prior builder handoff (superseded by independent verification)
 
 ## Result
 
