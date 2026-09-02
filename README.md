@@ -1,16 +1,28 @@
 # Finite Forge
 
-Finite Forge is a five-run browser strategy game for reset fans. Mine ore,
-shape parts, and charge each beacon within 24 production ticks. Sunlight
-bonuses and reset tools change the best plan. The fifth beacon ends the
-campaign.
+Finite Forge is a five-run browser strategy game for reset fans. Build each
+beacon across six 24-tick blueprints. Mine ore, shape parts, and charge before
+sunset. The fifth beacon ends the campaign.
+
+## Session and price
+
+A full campaign is designed for 33.3 minutes. Every reset-tool order needs at
+least 400 production decisions. The estimate budgets five seconds to read the
+forecast and choose each action. Run one is free. A $5 one-time Sociobot
+license adds runs two through five. Sociobot and Dodo are the merchant of
+record. Refunds revoke the license.
+
+After checkout, Finite Forge stores the returned license in browser storage
+and checks it with Sociobot. The check happens on return, then at most once a
+day. A buyer can paste a license token to restore a purchase on another device.
 
 ## Play and controls
 
-Every action spends one tick. An unfinished beacon loses when tick 24 ends.
-Winning a run lets you choose one tool for the next run. A failed run can be
-retried without losing earlier tools. Starting a new campaign after the final
-ending resets every run, resource, tool, and tick.
+Every action spends one tick. An unfinished blueprint loses when tick 24 ends.
+Complete six blueprints to finish a beacon run. Winning a run lets you choose
+one tool for the next run. A failed later blueprint can be retried without losing
+earlier tools. Starting a new campaign after the final ending resets every run,
+blueprint, resource, tool, and tick.
 
 Production works with touch, pointer input, and the M, S, and C keys. Motion
 and sound settings persist after reload. Sound starts only after a player
@@ -18,16 +30,16 @@ enables it and takes an action.
 
 ## Demo
 
-Open `/demo` for a stocked run-three sample with two tools. Demo progress uses
-`demo:finite-forge:v3`. Real progress uses `finite-forge:v3`. Reset demo
-restores only the sample. Start for real discards demo data and returns to the
-real campaign.
+Open `/demo` for a stocked run-three, blueprint-four sample with two tools. Demo
+progress uses `demo:finite-forge:v4`. Real progress uses
+`finite-forge:v4`. Reset demo restores only the sample. Start for real
+discards demo data and returns to the real campaign.
 
-## Price and privacy
+## Privacy
 
-The complete five-run campaign costs $0. It needs no account or checkout.
 Progress and settings stay in browser localStorage. There are no analytics or
-third-party runtime requests. The forge has no idle timer or offline
+third-party runtime requests during normal or demo play. A supplied buyer
+license is checked only with Sociobot. The forge has no idle timer or offline
 production. See `/privacy` and `/terms`.
 
 ## Run and verify
@@ -40,10 +52,11 @@ npm run lint
 npm run build
 ```
 
-The measured rendering claim uses Chromium at 390×844 with 4× CPU slowdown.
-It samples 180 animation intervals and requires 55–65 fps with a 20 ms p95.
-Every public, testable product claim is listed in `.factory/claims.json`.
+The rendering claim uses Chromium at 390×844 with 4× CPU slowdown. It samples
+180 animation intervals and requires 55–65 fps with a 20 ms p95. Product
+claims and their regression commands are in `.factory/claims.json`.
 
 Vite places the static site in `dist/`. Deploy that directory to the static
-host. The copied `staticwebapp.config.json` sets security headers, immutable
-asset caching, route rewrites, and the HTTP 404 response.
+host. The copied `staticwebapp.config.json` sets security headers, the
+Sociobot license API allow-list, immutable asset caching, route rewrites, and
+the HTTP 404 response.

@@ -67,7 +67,11 @@ input:focus-visible {
   background: var(--amber);
   color: var(--amber-ink);
   z-index: 4;
-  padding: 10px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
 }
 .skip:focus {
   top: 8px;
@@ -105,9 +109,11 @@ nav {
   font-size: 14px;
 }
 nav a {
+  min-width: 44px;
   min-height: 44px;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 14px 0;
 }
 .demo {
@@ -542,6 +548,33 @@ kbd {
     monospace;
   color: var(--amber);
 }
+.unlock-panel form {
+  margin-top: 18px;
+  display: grid;
+  gap: 8px;
+  max-width: 520px;
+}
+.unlock-panel label {
+  color: var(--ink);
+  font-weight: 700;
+}
+.unlock-panel form > div {
+  display: flex;
+  gap: 8px;
+}
+.unlock-panel input {
+  min-width: 0;
+  min-height: 44px;
+  flex: 1;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 10px;
+}
+.license-status {
+  font-size: 13px;
+}
 .tool-choices {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -666,9 +699,11 @@ footer {
   flex-wrap: wrap;
 }
 footer a {
+  min-width: 44px;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 }
 .document {
   min-height: 56vh;
@@ -774,6 +809,10 @@ footer a {
   .tool-choices,
   .tool-list {
     grid-template-columns: 1fr;
+  }
+  .unlock-panel form > div {
+    align-items: stretch;
+    flex-direction: column;
   }
   .how ol {
     grid-template-columns: 1fr;

@@ -56,22 +56,27 @@ with the factory image deployment from this prompt:
 > generous quiet margins. Constraints: no text, no numerals, no watermark, no
 > logo, no people, no copyrighted objects.
 
-Generated image provenance is disclosed in the footer. The source PNG and its
-prompt sidecar live in `assets/src`; its optimized WebP is used at runtime.
+Generated image provenance is disclosed in the footer. The reviewed prompt is
+recorded here; its optimized WebP is used at runtime.
 
 ## Difficulty curve
 
-The campaign has five deterministic forge runs. Each run gives the player
-exactly 24 production ticks before sunset. Every mine, shape, or charge action
-spends one tick. The 24-part rail and numeric countdown show that budget at all
-times. An unfinished beacon loses at tick 24; retry resets that run without
-granting a tool.
+The campaign has five deterministic forge runs, with six authored blueprints
+inside each run. Each blueprint gives the player exactly 24 production ticks
+before sunset. Every mine, shape, or charge action spends one tick. The
+24-part rail and numeric countdown show that budget at all times. An unfinished
+blueprint loses at tick 24; retry resets that blueprint without granting a
+tool or removing earlier tools.
 
 Sunlight moves between stations on a deterministic schedule. Matching the
 sunlit station adds one unit, and the next six bonuses remain visible for
-planning. Charge targets rise through 12, 14, 17, 19, and 36. Each successful
-run offers a remaining tool: Bellows adds ore, Pattern plate adds parts,
-Focusing lens adds charge, and Stock bin adds starting materials. Every tool
-order has a winning route, while inefficient actions can reach sunset. Four
-chosen tools lead into the fifth and final beacon. A deterministic solver
-drives the title-to-ending, loss, retry, and restart regression tests.
+planning. Charge targets rise from 13 in the first blueprint to 24 in the
+last. Each successful run offers a remaining tool: Bellows adds ore, Pattern
+plate adds parts, Focusing lens adds charge, and Stock bin adds starting
+materials. Every tool order has a winning route, while inefficient actions can
+reach sunset. Four chosen tools lead into the fifth and final beacon. A
+deterministic solver proves all 24 tool orders finish all 30 blueprints in at
+least 400 production decisions. At five seconds to read and choose a decision,
+the target session is 33.3 minutes. Run one is free; a $5 one-time Sociobot
+license adds runs two through five. A deterministic solver drives the
+title-to-ending, loss, retry, and restart regression tests.

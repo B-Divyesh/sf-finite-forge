@@ -9,11 +9,11 @@ No landing sentence exceeds 22 words. No banned marketing word appears.
 |---|---:|---|
 | A finite strategy game | 4 | Pass |
 | Build a beacon before sunset. | 5 | Pass |
-| For reset fans who want a complete campaign with a deadline. | 11 | Pass |
+| For reset fans who want a 30–45 minute campaign with a deadline. | 12 | Pass |
 | Try it with sample data | 6 | Pass |
 | Opens run three with stock and two tools. | 8 | Pass |
-| 24 production ticks per run | 5 | Pass |
-| Five runs with a final ending | 6 | Pass |
+| 30 blueprints with 24 ticks each | 6 | Pass |
+| Run one free; $5 once for the full campaign | 10 | Pass |
 | Progress stays in this browser | 5 | Pass |
 | Use the daylight forecast, choose reset tools, and beat sunset. | 10 | Pass |
 
@@ -28,10 +28,12 @@ The job and first action fit in one breath.
 | Use the sunlit station for +1. | 6 | Pass |
 | A missing input still spends the tick. | 7 | Pass |
 | Read the next six sunlight bonuses before acting. | 8 | Pass |
+| This beacon needs six blueprints. | 5 | Pass |
+| Review the next blueprint before sunset. | 6 | Pass |
 | The next beacon needs more charge. | 6 | Pass |
 | Pick one tool before the next sunrise. | 7 | Pass |
-| The beacon reached [charge] of [goal] charge when tick 24 ended. | 11 | Pass |
-| You charged five beacons before sunset. | 7 | Pass |
+| Blueprint [n] reached [charge] of [goal] charge when tick 24 ended. | 12 | Pass |
+| You charged five beacons through thirty blueprints before sunset. | 9 | Pass |
 | This campaign ends here. | 4 | Pass |
 
 ## Supporting sections
@@ -39,12 +41,13 @@ The job and first action fit in one breath.
 | Copy | Words | Result |
 |---|---:|---|
 | The sunlit station makes one extra unit on that tick. | 10 | Pass |
-| Mine ore, shape parts, and charge the beacon before sunset. | 10 | Pass |
+| Each beacon run has six 24-tick blueprints before you choose a tool. | 12 | Pass |
 | Keep one new tool, then build the fifth and final beacon. | 11 | Pass |
 | It has no idle timers, offline income, or endless prestige layers. | 11 | Pass |
 | Progress changes only when you act. | 6 | Pass |
-| $0. All five runs are available now. | 7 | Pass |
-| No checkout is required. | 4 | Pass |
+| Run one is free. | 5 | Pass |
+| A $5 one-time purchase adds runs two through five. | 9 | Pass |
+| At least 400 decisions, planned at five seconds each, take 33.3 minutes. | 12 | Pass |
 | A five-run strategy forge with a sunset deadline. | 8 | Pass |
 | Blueprint illustration uses original generated imagery. | 6 | Pass |
 
@@ -52,9 +55,10 @@ The job and first action fit in one breath.
 
 | Concept | One term used |
 |---|---|
-| One reset cycle | run |
+| One beacon cycle | run |
+| One authored board inside a run | blueprint |
 | One limited action | production tick |
-| End of a run's action budget | sunset |
+| End of a blueprint action budget | sunset |
 | Long-form progress | campaign |
 | Persistent production upgrade | reset tool |
 | Final resource | beacon charge |
