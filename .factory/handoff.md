@@ -1,45 +1,59 @@
-# Finite Forge handoff
+# Finite Forge verification handoff — FAIL
 
-## Delivered
+Candidate `6ad408f115c0a76cd8364db4a362833545f295ca` was independently tested at
+`https://finite-forge.sociobot.in` on 2026-09-02 UTC. The live HTML, JS, CSS,
+and hero image match the candidate build byte for byte.
 
-- A complete local-first browser game: 24 visible production ticks, mine →
-  shape → charge actions, a lose state, reset choices, four persistent tools,
-  and a final beacon ending on the fifth plan.
-- Portrait-first touch controls plus M/S/C keyboard controls. Progress and
-  settings persist in localStorage, and the game pauses its visual clock when
-  the tab is hidden.
-- `/demo` and `?demo=1` use the isolated `demo:finite-forge:v1` storage key,
-  display a persistent demo banner, and provide reset/start-real actions.
-- A $5 one-time full-campaign path uses Sociobot checkout, query-token capture,
-  local token storage, daily license verification, and manual license restore.
-- `/privacy`, `/terms`, app-style 404 fallback, metadata, sitemap, robots,
-  CSP/security headers, original favicon, and a generated original blueprint
-  hero illustration.
+## Result
 
-## Verification
+**FAIL — do not release this candidate.**
 
-- `npm test` passes: 4 deterministic core tests and 7 Chromium tests.
-  Browser tests cover completion (`@claim:reaches-end-screen`), reset
-  (`@claim:restart-resets-state`), isolated demo storage, and no serious or
-  critical axe findings.
-- `npm run build` passes and emits `dist/index.html`.
-- Production payload: JavaScript is 4.62 KB gzip; CSS is 2.37 KB gzip; the
-  optimized hero WebP is 28 KB. The source PNG is kept outside `public/`.
-- A Chromium 390×844 screenshot was reviewed: the game board begins on the
-  first phone screen and controls are stacked as 44 px+ targets.
-- Lighthouse CLI was attempted with the supplied Chromium path but could not
-  connect to Chrome in this container. Axe/browser checks and build-size
-  measurements are recorded above instead.
+The normal game flow cannot reach the campaign ending. After two completed
+plans it requires a license, while the advertised Sociobot checkout returns
+HTTP 404. The header Demo link is also unsafe: it displays `/demo` without
+entering demo mode and writes actions to `finite-forge:v1`.
 
-## Assets and provenance
+Other release findings:
 
-`assets/src/forge-blueprint.png` was generated with the factory-image
-deployment on 2026-09-02. Prompt and generation metadata are in the adjacent
-JSON file and `.factory/design.md`. Runtime uses its 512 px WebP derivative.
+- The demo starts with an empty board, not sample data.
+- Public duration, pricing, input, and final-ending claims are missing from
+  `.factory/claims.json`; the listed end-screen test stops at an intermediate
+  reset panel.
+- A loss grants a new tool despite copy saying completed plans do so.
+- The final panel is reached after four active plans while claiming five.
+- Motion and sound settings persist but do not affect the game; the panel is
+  visible even while its button reports `aria-expanded="false"`.
+- Production has no CSP, hashed assets cache for only 30 seconds, and the
+  designed 404 responds with status 200.
+- SPA section scrolling/focus and several 44 px touch targets fail the stated
+  accessibility contract.
 
-## Known gaps / next steps
+## Verification that passed
 
-- The stated $5 price is a v1 product decision; the factory must register the
-  Sociobot product before checkout becomes live.
-- Re-run Lighthouse in the deployment environment when a Chrome debugging
-  connection is available.
+- All six claim commands pass after `npm ci`.
+- `npm test`: 4 unit + 7 browser tests pass.
+- `npx tsc --noEmit` and `npm run build` pass; `dist/` is produced.
+- Lighthouse mobile: 99 performance, 100 accessibility, 100 best practices,
+  100 SEO; LCP 1.1 s and CLS 0.
+- Axe found no serious/critical issues on all routes tested.
+- 390 px touch play, M/S/C keyboard play, loss/recovery, deadline win,
+  persistence, restart, reduced motion, and direct demo storage isolation work.
+- Demo gameplay sends only same-origin requests and logs no page/console errors.
+- Measured 60.18 fps over five seconds with 4× CPU throttling.
+- License verification rate limit allows 30 immediate requests; request 31
+  returned 429 with `Retry-After: 4`.
+
+Full reproduction steps, hashes, metrics, and evidence paths are in
+`.factory/verification.md`. No product code was changed during verification.
+
+## Re-run
+
+```sh
+npm ci
+npm test
+npx tsc --noEmit
+npm run build
+```
+
+Then verify the live checkout and play from a clean `/demo` context through
+the genuine final campaign screen without pre-seeding license state.
