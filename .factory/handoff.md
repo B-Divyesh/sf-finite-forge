@@ -1,49 +1,46 @@
-# Finite Forge checkout registration repair handoff
+# Finite Forge verification 7 handoff
 
 ## Result
 
-**BLOCKED — one external billing finding and zero untested product claims.**
+**FAIL — one external billing finding and zero untested claims.**
 
-Implementation `c4cce27b42edb13501651aaae3f57f6fcdd0f3ea` is deployed at
-<https://finite-forge.sociobot.in>. Independent verification documentation is
-`92b45bb84df2936ad3535038eef4efbbcb997ad7`; this repair's evidence is
-`95bb42dc86b3845f325a45e3f9e1c08a6f0ebf64`. Neither changes the product
-implementation. The verified `dist/` was redeployed to the existing product
-static target and passed a fresh cold HTTPS desktop and phone check.
+Implementation `c4cce27b42edb13501651aaae3f57f6fcdd0f3ea` is live at
+<https://finite-forge.sociobot.in>. The documentation baseline reviewed was
+`e35334412ab8e055513e579c379a24012c85927c`. Later changes in this handoff are
+reports and evidence only; no product code was modified.
 
-The game repair passed fresh live QA. The remaining release blocker is external
-billing registration: the advertised `finite-forge` checkout still returns
-HTTP 404, so a new buyer cannot obtain the $5 full-campaign license. The
-product site's designed 404 is correct and is not the finding. No product-code
-change was made because the public checkout link and client license flow are
-already correct.
+All implementation checks pass. The remaining blocker is the unregistered
+`finite-forge` billing product: its advertised `$5` checkout returns HTTP 404,
+so a new buyer cannot receive a license or enter run two.
 
 ## Verified
 
-- All 22 exact declared claim commands passed after a fresh `npm ci`.
-- Local gates passed: 7 Vitest tests, 24 Playwright tests, typecheck, lint,
-  build, production audit, and full audit.
-- The live Playwright suite passed 24/24 and the deployed JS, CSS, and artwork
-  byte-match the implementation build.
-- Fresh 1440×900 desktop and 390×844 phone views show the job, audience, first
-  action, and game before scrolling.
-- The one-click sample is populated, persistently labeled, resettable, and
-  isolated from real progress.
-- A deterministic live UI run reached **Final beacon lit** after 5 runs, 30
-  blueprints, and 419 ticks. A separate 24-mine run reached **Sunset reached**.
-  Loss, retry, restart, invalid input, malformed save recovery, settings,
-  touch, pointer, and keyboard paths passed.
-- Accessibility, reduced motion, 200% reflow, route metadata, legal pages,
-  privacy requests, headers, caching, and the designed HTTP 404 passed.
-- Live frame sample: 60.00 fps with 16.7 ms p95 at 390×844 and 4× CPU.
-- Lighthouse: 100/100/100/100; LCP 1.1 s, TBT 0 ms, CLS 0.
-- The verify endpoint returned 429 on request 31 with `Retry-After: 4`.
+- All 22 declared claim commands passed individually after a fresh `npm ci`.
+- `npm test` passed 7 Vitest and 24 Playwright tests; typecheck, lint, build,
+  production audit, and full audit passed.
+- The full live suite passed 24/24, and live HTML/assets byte-match the build.
+- Fresh 1440×900 desktop and 390×844 phone first views show the job, audience,
+  first action, and the active game board before scrolling.
+- The stocked one-click sample remains labeled, resets exactly, and leaves the
+  real save unchanged.
+- A fresh live run reached **Final beacon lit** after five runs, 30 blueprints,
+  and 419 ticks. A separate run reached **Sunset reached** at tick 24 and
+  recovered with retry.
+- Invalid input, malformed-save recovery, touch, pointer, keyboard, settings,
+  reduced motion, history focus, 200% reflow, route titles, legal pages,
+  privacy requests, and the designed 404 passed.
+- Fresh Axe scans found zero violations on every route. The factory URL check
+  reported no console errors.
+- Fresh Lighthouse mobile scored 100/100/100/100 with 1.1 s LCP, 0 ms TBT,
+  CLS 0, and 39 KiB transferred.
+- The license verifier returned a CORS-valid invalid response and enforced its
+  allowance with HTTP 429 and `Retry-After: 4`.
 
 ## Evidence and commands
 
-Full report: `.factory/verification-6.md`
+Full report: `.factory/verification-7.md`
 
-Fresh evidence: `.factory/qa-7/` and `.factory/qa-7/verify-live/`
+Fresh evidence: `.factory/verification-7-evidence/`
 
 ```sh
 npm ci
@@ -56,9 +53,7 @@ BASE_URL=https://finite-forge.sociobot.in npx playwright test
 
 ## Remaining action
 
-Register the one-time `finite-forge` product through the factory Sociobot
-billing workflow. Then verify a real checkout, return token, live verification,
-and entry into run two. This worker has no `/opt/fleet/new-paid-product.sh`
-helper or product billing registration credential, so it cannot perform that
-external registration safely. No payment stub, invented credential, or
-product-code workaround was added.
+Register the `$5` one-time `finite-forge` product through the factory Sociobot
+billing workflow. Then verify checkout, return token, live verification, and
+entry into run two. This is an external billing-registration dependency, not a
+product-code defect. Do not replace it with a payment stub or direct provider.

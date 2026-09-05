@@ -1,0 +1,33 @@
+{
+  "unknownKey": {
+    "before": 7,
+    "after": 7
+  },
+  "missingInput": {
+    "before": 7,
+    "after": 8,
+    "charge": 6,
+    "notice": "Charge beacon completed. 16 ticks remain."
+  },
+  "malformedRecovery": {
+    "run": 3,
+    "shift": 4,
+    "tick": 7,
+    "afterAction": 8
+  },
+  "history": {
+    "back": {
+      "url": "https://finite-forge.sociobot.in/",
+      "title": "Finite Forge — Build a beacon before sunset",
+      "focus": "H1",
+      "h1": "Build a beacon before sunset."
+    },
+    "forward": {
+      "url": "https://finite-forge.sociobot.in/demo",
+      "title": "Demo — Finite Forge",
+      "focus": "BODY",
+      "h1": "Build a beacon before sunset."
+    }
+  },
+  "errors": []
+}

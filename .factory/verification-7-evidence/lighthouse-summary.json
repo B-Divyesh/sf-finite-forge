@@ -1,0 +1,12 @@
+{
+  "performance": 100,
+  "accessibility": 100,
+  "bestPractices": 100,
+  "seo": 100,
+  "FCP": "0.8 s",
+  "LCP": "1.1 s",
+  "TBT": "0 ms",
+  "CLS": "0",
+  "speedIndex": "0.8 s",
+  "totalBytes": "Total size was 39 KiB"
+}

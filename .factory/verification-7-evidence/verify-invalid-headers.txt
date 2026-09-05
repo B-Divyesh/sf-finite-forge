@@ -1,0 +1,9 @@
+HTTP/2 200 
+content-type: application/json
+date: Sat, 05 Sep 2026 20:45:29 GMT
+access-control-allow-credentials: true
+access-control-allow-origin: https://finite-forge.sociobot.in
+cache-control: no-store
+vary: origin, access-control-request-method, access-control-request-headers
+content-length: 52
+

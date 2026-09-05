@@ -1,0 +1,238 @@
+{
+  "desktop": {
+    "first": {
+      "title": "Finite Forge — Build a beacon before sunset",
+      "scrollY": 0,
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "h1": {
+        "text": "Build a beacon before sunset.",
+        "top": 238.546875,
+        "bottom": 384.453125,
+        "visible": true
+      },
+      "audience": {
+        "text": "For reset fans who want a 30–45 minute campaign with a deadline.",
+        "top": 404.453125,
+        "bottom": 460.453125,
+        "visible": true
+      },
+      "action": {
+        "text": "Try it with sample data",
+        "top": 485.453125,
+        "bottom": 529.453125,
+        "visible": true
+      },
+      "game": null,
+      "bodyWidth": 1440
+    },
+    "errors": []
+  },
+  "phone": {
+    "first": {
+      "title": "Finite Forge — Build a beacon before sunset",
+      "scrollY": 0,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "h1": {
+        "text": "Build a beacon before sunset.",
+        "top": 131,
+        "bottom": 221.21875,
+        "visible": true
+      },
+      "audience": {
+        "text": "For reset fans who want a 30–45 minute campaign with a deadline.",
+        "top": 241.21875,
+        "bottom": 297.21875,
+        "visible": true
+      },
+      "action": {
+        "text": "Try it with sample data",
+        "top": 322.21875,
+        "bottom": 366.21875,
+        "visible": true
+      },
+      "game": null,
+      "bodyWidth": 390
+    },
+    "errors": []
+  },
+  "demo": {
+    "realUnchangedThroughReset": true,
+    "realBefore": "{\"campaign\":{\"run\":1,\"shift\":1,\"tick\":0,\"deadline\":24,\"goal\":13,\"stock\":{\"ore\":0,\"parts\":0,\"charge\":0},\"owned\":[],\"status\":\"active\",\"completedRuns\":0,\"completedShifts\":0,\"totalTicks\":0},\"settings\":{\"motion\":true,\"sound\":false}}",
+    "sampleBefore": {
+      "url": "https://finite-forge.sociobot.in/demo",
+      "banner": "Demo — sample data, nothing is savedRun three starts stocked with two tools.Reset demoStart for real",
+      "resources": "Ore4Parts3Beacon charge5 / 18",
+      "real": "{\"campaign\":{\"run\":1,\"shift\":1,\"tick\":0,\"deadline\":24,\"goal\":13,\"stock\":{\"ore\":0,\"parts\":0,\"charge\":0},\"owned\":[],\"status\":\"active\",\"completedRuns\":0,\"completedShifts\":0,\"totalTicks\":0},\"settings\":{\"motion\":true,\"sound\":false}}",
+      "demo": {
+        "campaign": {
+          "run": 3,
+          "shift": 4,
+          "tick": 7,
+          "deadline": 24,
+          "goal": 18,
+          "stock": {
+            "ore": 4,
+            "parts": 3,
+            "charge": 5
+          },
+          "owned": [
+            "bellows",
+            "pattern"
+          ],
+          "status": "active",
+          "completedRuns": 2,
+          "completedShifts": 15,
+          "totalTicks": 278
+        },
+        "settings": {
+          "motion": true,
+          "sound": false
+        },
+        "demoEntitled": true
+      }
+    },
+    "bannerAfterAction": true,
+    "reset": {
+      "used": true,
+      "real": "{\"campaign\":{\"run\":1,\"shift\":1,\"tick\":0,\"deadline\":24,\"goal\":13,\"stock\":{\"ore\":0,\"parts\":0,\"charge\":0},\"owned\":[],\"status\":\"active\",\"completedRuns\":0,\"completedShifts\":0,\"totalTicks\":0},\"settings\":{\"motion\":true,\"sound\":false}}",
+      "demo": {
+        "run": 3,
+        "shift": 4,
+        "tick": 7,
+        "deadline": 24,
+        "goal": 18,
+        "stock": {
+          "ore": 4,
+          "parts": 3,
+          "charge": 5
+        },
+        "owned": [
+          "bellows",
+          "pattern"
+        ],
+        "status": "active",
+        "completedRuns": 2,
+        "completedShifts": 15,
+        "totalTicks": 278
+      }
+    },
+    "afterExit": {
+      "url": "https://finite-forge.sociobot.in/",
+      "real": "{\"campaign\":{\"run\":1,\"shift\":1,\"tick\":0,\"deadline\":24,\"goal\":13,\"stock\":{\"ore\":0,\"parts\":0,\"charge\":0},\"owned\":[],\"status\":\"active\",\"completedRuns\":0,\"completedShifts\":0,\"totalTicks\":0},\"settings\":{\"motion\":true,\"sound\":false}}",
+      "demo": null
+    },
+    "onlySameOrigin": true,
+    "requestOrigins": [
+      "https://finite-forge.sociobot.in"
+    ],
+    "errors": []
+  },
+  "win": {
+    "heading": "Final beacon lit",
+    "hasFiveRuns": true,
+    "hasThirtyBlueprints": true,
+    "totalTicks": 419,
+    "status": "campaign-complete",
+    "errors": []
+  },
+  "loss": {
+    "loss": {
+      "heading": "Sunset reached"
+    },
+    "retry": {
+      "used": true
+    },
+    "errors": []
+  },
+  "accessibility": {
+    "firstFocus": "Skip to game",
+    "skipTarget": "main",
+    "metrics": {
+      "h1": 1,
+      "lang": "en",
+      "main": true,
+      "reducedAnimation": "1e-05s",
+      "minText": 16,
+      "scrollWidth": 390,
+      "innerWidth": 390
+    },
+    "minVisibleTarget": {
+      "width": 79.125,
+      "height": 44
+    },
+    "errors": []
+  },
+  "reflow200": {
+    "scrollWidth": 640,
+    "innerWidth": 640,
+    "overflow": false
+  },
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "title": "Finite Forge — Build a beacon before sunset",
+      "h1": [
+        "Build a beacon before sunset."
+      ],
+      "canonical": "https://finite-forge.sociobot.in/",
+      "description": "Build five beacons across thirty 24-tick blueprints before sunset.",
+      "header": true,
+      "footer": true
+    },
+    {
+      "path": "/demo",
+      "status": 200,
+      "title": "Demo — Finite Forge",
+      "h1": [
+        "Build a beacon before sunset."
+      ],
+      "canonical": "https://finite-forge.sociobot.in/demo",
+      "description": "Play a stocked, isolated forge run with a 24-tick sunset deadline.",
+      "header": true,
+      "footer": true
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "title": "Privacy — Finite Forge",
+      "h1": [
+        "Privacy"
+      ],
+      "canonical": "https://finite-forge.sociobot.in/privacy",
+      "description": "Finite Forge stores progress and settings in your browser. It has no analytics. Buyer licenses are checked with Sociobot.",
+      "header": true,
+      "footer": true
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "title": "Terms — Finite Forge",
+      "h1": [
+        "Terms"
+      ],
+      "canonical": "https://finite-forge.sociobot.in/terms",
+      "description": "Run one is free. A $5 one-time license adds runs two through five. Sociobot and Dodo are the merchant of record. Refunds revoke the license.",
+      "header": true,
+      "footer": true
+    },
+    {
+      "path": "/missing-plan",
+      "status": 404,
+      "title": "Not found — Finite Forge",
+      "h1": [
+        "Page not found."
+      ],
+      "canonical": "https://finite-forge.sociobot.in/404",
+      "description": "The requested Finite Forge page does not exist.",
+      "header": true,
+      "footer": true
+    }
+  ]
+}

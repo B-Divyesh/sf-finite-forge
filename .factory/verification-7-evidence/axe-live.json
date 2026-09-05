@@ -1,0 +1,27 @@
+[
+  {
+    "path": "/",
+    "violations": [],
+    "seriousCritical": 0
+  },
+  {
+    "path": "/demo",
+    "violations": [],
+    "seriousCritical": 0
+  },
+  {
+    "path": "/privacy",
+    "violations": [],
+    "seriousCritical": 0
+  },
+  {
+    "path": "/terms",
+    "violations": [],
+    "seriousCritical": 0
+  },
+  {
+    "path": "/missing-plan",
+    "violations": [],
+    "seriousCritical": 0
+  }
+]

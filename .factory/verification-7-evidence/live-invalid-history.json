@@ -1,0 +1,24 @@
+{
+  "unknownKey": {
+    "before": 0,
+    "after": 0
+  },
+  "missingMaterial": {
+    "before": 0,
+    "after": 1,
+    "charge": 0,
+    "notice": "Charge beacon needed material. The production tick was still used."
+  },
+  "history": {
+    "back": {
+      "url": "https://finite-forge.sociobot.in/",
+      "title": "Finite Forge — Build a beacon before sunset",
+      "focus": "H1"
+    },
+    "forward": {
+      "url": "https://finite-forge.sociobot.in/demo",
+      "title": "Demo — Finite Forge",
+      "focus": "H1"
+    }
+  }
+}
