@@ -1,0 +1,32 @@
+{
+  "checked_at": "2026-09-05T20:29:00Z",
+  "live_url": "https://finite-forge.sociobot.in",
+  "desktop": {
+    "viewport": "1440x900",
+    "job": "Build a beacon before sunset.",
+    "audience": "For reset fans who want a 30–45 minute campaign with a deadline.",
+    "first_action": "Try it with sample data",
+    "game_top_px": 752,
+    "console_errors": []
+  },
+  "phone": {
+    "viewport": "390x844",
+    "game_top_px": 533,
+    "console_errors": []
+  },
+  "demo": {
+    "persistent_label_after_play": true,
+    "reset_state": {
+      "run": 3,
+      "blueprint": 4,
+      "tick": 7,
+      "stock": { "ore": 4, "parts": 3, "charge": 5 },
+      "tools": ["bellows", "pattern"]
+    },
+    "real_progress_unchanged_while_demo": true
+  },
+  "gameplay": {
+    "win": { "status": "campaign-complete", "runs": 5, "blueprints": 30, "ticks": 419 },
+    "loss": { "status": "failed", "ticks_used": 24 }
+  }
+}

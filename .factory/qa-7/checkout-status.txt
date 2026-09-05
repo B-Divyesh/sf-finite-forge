@@ -1,0 +1,5 @@
+GET https://api.sociobot.in/api/v1/products/finite-forge/checkout
+HTTP 404
+
+The advertised hosted checkout remains unavailable. This is the external
+billing-registration finding, not the product site's designed 404 route.
