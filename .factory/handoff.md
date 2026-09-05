@@ -41,6 +41,33 @@ The actual response is from
 product's deliberate designed 404 route. It returns the recorded API error
 `enabled factory product` with status 404.
 
+## Live deployment check
+
+`/opt/fleet/lib/deploy-static.sh finite-forge dist` succeeded for the existing
+one-replica static app and its `finite-forge.sociobot.in` custom domain. The
+implementation artifact is unchanged from `c4cce27`; this repair ships tests,
+claims, documentation, and evidence.
+
+- A fresh 1440×900 desktop and 390×844 phone both showed the job, audience,
+  first action, and active board before scrolling. The board begins at y=752
+  on desktop and y=533 on phone.
+- The phone sample started with 4 ore, 3 parts, and 5/18 charge. Its label
+  remained after play, reset restored tick 7, Start for real removed the demo
+  key, and the original real save was byte-for-byte unchanged.
+- Fresh live deterministic win and loss tests passed. The five-run end screen
+  and the 24-tick sunset screen are recorded in `.factory/repair-7/`.
+- The live non-checkout browser suite passed 24/24. The factory URL check
+  passed with no console errors, and fresh Axe scans found no serious or
+  critical issue on home, demo, Privacy, Terms, or the designed 404 route.
+- The checkout was checked again after deployment and still returns HTTP 404.
+
+Evidence: `.factory/repair-7/live-desktop-first.png`,
+`.factory/repair-7/live-phone-first.png`,
+`.factory/repair-7/live-phone-demo.png`,
+`.factory/repair-7/live-final-ending.png`,
+`.factory/repair-7/live-sunset-loss.png`, and
+`.factory/repair-7/verify-url/verify.json`.
+
 ## Remaining action
 
 The factory billing workflow must register the one-time `$5` `finite-forge`

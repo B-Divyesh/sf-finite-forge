@@ -24,6 +24,7 @@ const demoLicenseKey = 'demo:sb_license:finite-forge';
 const demoLicenseCacheKey = 'demo:sb_license_verdict:finite-forge';
 const verifyEndpoint = 'https://api.sociobot.in/api/v1/products/finite-forge/verify';
 const checkoutEndpoint = 'https://api.sociobot.in/api/v1/products/finite-forge/checkout';
+const evidenceDir = process.env.EVIDENCE_DIR;
 
 type DemoSave = { campaign: Campaign; settings: { motion: boolean; sound: boolean }; demoEntitled: boolean };
 type LicenseVerdict = { token: string; valid: boolean; checkedAt: number };
@@ -50,6 +51,10 @@ async function seedDemo(page: Page, campaign: Campaign, demoEntitled = true, lic
 
 async function readDemoSave(page: Page): Promise<DemoSave> {
   return page.evaluate(key => JSON.parse(localStorage.getItem(key) || 'null'), demoKey) as Promise<DemoSave>;
+}
+
+async function captureEvidence(page: Page, name: string) {
+  if (evidenceDir) await page.screenshot({ path: `${evidenceDir}/${name}.png`, fullPage: true });
 }
 
 async function winShift(page: Page, campaign: Campaign): Promise<Campaign> {
@@ -137,6 +142,7 @@ test('@claim:campaign-final-ending a demo campaign reaches the genuine final end
   await expect(page.getByRole('heading', { name: 'Final beacon lit' })).toBeVisible();
   await expect(page.getByText('5 / 5')).toBeVisible();
   await expect(page.getByText(`${CAMPAIGN_SHIFT_COUNT} / ${CAMPAIGN_SHIFT_COUNT}`)).toBeVisible();
+  await captureEvidence(page, 'live-final-ending');
 });
 
 test('@claim:restart-resets-state starting a new demo campaign resets every visible campaign field', async ({ page }) => {
@@ -157,6 +163,7 @@ test('@claim:sunset-deadline a demo blueprint loses at tick 24 and retries at su
   for (let tick = 0; tick < PRODUCTION_TICKS; tick += 1) await page.keyboard.press('m');
   await expect(page.getByRole('heading', { name: 'Sunset reached' })).toBeVisible();
   await expect(page.getByText('0 ticks left')).toBeVisible();
+  await captureEvidence(page, 'live-sunset-loss');
   await page.getByRole('button', { name: 'Retry this blueprint' }).click();
   await expect(page.getByRole('heading', { name: /RUN 01 · BLUEPRINT 1\/6 · 24 TICKS TO SUNSET/ })).toBeVisible();
   await expect(page.getByText('0 / 24 production ticks used.')).toBeVisible();
