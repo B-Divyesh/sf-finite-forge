@@ -1,0 +1,47 @@
+{
+  "desktop": {
+    "title": "Finite Forge — Build a beacon before sunset",
+    "job": "Build a beacon before sunset.",
+    "audience": "For reset fans who want a 30–45 minute campaign with a deadline.",
+    "action": "Try it with sample data",
+    "errors": []
+  },
+  "phone": {
+    "title": "Finite Forge — Build a beacon before sunset",
+    "job": "Build a beacon before sunset.",
+    "audience": "For reset fans who want a 30–45 minute campaign with a deadline.",
+    "action": "Try it with sample data",
+    "errors": []
+  },
+  "demo": {
+    "banner": true,
+    "before": "Ore\n4\nParts\n3\nBeacon charge\n5 / 18",
+    "afterTick": true,
+    "realIsNull": true,
+    "demoSeed": {
+      "run": 3,
+      "shift": 4,
+      "tick": 7,
+      "deadline": 24,
+      "goal": 18,
+      "stock": {
+        "ore": 4,
+        "parts": 3,
+        "charge": 5
+      },
+      "owned": [
+        "bellows",
+        "pattern"
+      ],
+      "status": "active",
+      "completedRuns": 2,
+      "completedShifts": 15,
+      "totalTicks": 278
+    }
+  },
+  "inventedOffline": {
+    "staysLocked": true,
+    "toolChoiceCount": 0,
+    "verdict": null
+  }
+}

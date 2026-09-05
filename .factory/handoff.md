@@ -1,68 +1,74 @@
-# Finite Forge verification 5 handoff
+# Finite Forge repair 5 handoff
 
 ## Result
 
-**FAIL.** Candidate `9674957f0433ffb3eea680ce99a3aae85e4f42b8` was
-independently tested against <https://finite-forge.sociobot.in> on 2026-09-02
-UTC. The live application byte-matches the candidate and the game, build,
-tests, accessibility baseline, privacy behavior, caching, and performance are
-largely sound. Release is blocked by the live paid path and by a client-side
-license bypass.
+**PARTIALLY COMPLETE — release remains blocked by billing registration.**
 
-## Blocking defects
+Implementation commit `c4cce27b42edb13501651aaae3f57f6fcdd0f3ea` is deployed to
+<https://finite-forge.sociobot.in>. It fixes the client-side paid-run bypass,
+the claims-contract defects, and all recorded minor UI/copy issues. The real
+Sociobot checkout is still unavailable: its product registration must be made
+by the factory billing workflow before the paid campaign can be released.
 
-1. **Critical:** the advertised Sociobot checkout still returns HTTP 404 with
-   `{"error":"enabled factory product","status":404}`. A new buyer cannot
-   legitimately continue from the free run to runs two through five.
-2. **High:** after run one, going offline and pasting any invented token exposes
-   the tool chooser and advances to run two. The client stores an unverified
-   token as `valid: true` before its first successful verification.
-3. **High:** the claim commands pass, but browser claims do not consistently
-   use `/demo` and the `demo:` namespace; the duration tag asserts its declared
-   minimum constant rather than running the actual lower-bound solver; public
-   daily-check, paste-restore, and revocation promises lack tagged claim tests.
+## What changed
 
-Additional findings: phone guidance and numeric labels use 11–14 px text below
-the stated 16 px/17 pt baseline; `/demo` has one minor Axe
-`aria-allowed-role` issue; Privacy metadata is 166 characters; the 404 headline
-uses prohibited brand metaphor.
+- New and pasted tokens now start locked. A paid run opens only after the
+  Sociobot verifier returns `valid: true`. Verdicts are bound to their token.
+  A previously verified verdict remains available offline; invalid, expired,
+  or revoked replies lock paid runs.
+- Demo license data now uses `demo:sb_license:*` keys. Resetting or leaving
+  the sample removes those demo-only values. The stock run-three sample keeps
+  its own sandbox entitlement and never reads a real license.
+- All browser claim checks now enter `/demo` and use only its `demo:` storage.
+  The duration claim now executes the exhaustive 24-tool-order solver rather
+  than checking constants. Added outcome claims cover first verification,
+  restore, cached-offline use, daily checks, and revocation.
+- Phone text has a 16 px visible minimum. The demo status uses a valid `div`
+  status role. Privacy metadata is under 155 characters. Both SPA and static
+  404 pages say “Page not found” and return to the game board.
 
-## Verified passing behavior
+## Verification
 
-- All 18 exact `.factory/claims.json` commands passed individually.
-- `npm test` passed 10 Vitest and 16 Playwright tests. Typecheck, lint, build,
-  both audits, and the same 16 browser tests against live all passed.
-- A deterministic live run reached **Final beacon lit** through 30 blueprints
-  at 419 ticks, then restart reset every field. Sunset loss, retry, retained
-  tools, settings, storage recovery, touch/pointer/M-S-C inputs, and demo
-  isolation passed.
-- Fresh mobile Lighthouse: 100 performance / 100 accessibility / 100 best
-  practices / 100 SEO; LCP 1.1 s, TBT 0 ms, CLS 0, transfer 39 KiB.
-- Fresh 390×844, 4× CPU frame sample: 60.00 fps, p95 16.8 ms.
-- Axe found zero serious/critical issues on home, demo, Privacy, Terms, and 404.
-- Demo and normal gameplay make same-origin requests only. Product headers and
-  immutable asset caching pass. The invalid-license API allowed 30 burst
-  requests, then returned 429 on request 31 with `Retry-After: 3`.
-- Candidate/live hashes match for HTML, JS, CSS, and hero image.
+From the documented clean setup (`npm ci`), all 22 exact commands in
+`.factory/claims.json` passed separately. The local suite passed 7 Vitest and
+24 Playwright checks. `npm run typecheck`, `npm run lint`, `npm run build`,
+`npm audit --omit=dev`, and `npm audit` also passed.
 
-## Evidence and reproduction
+Fresh HTTPS checks on 2026-09-05 UTC:
 
-The complete report is `.factory/verification-5.md`. Fresh screenshots,
-Lighthouse, and frame evidence are in `.factory/qa-5/`; URL verification is in
-`.factory/verify-5-live/`.
+- `/`, `/demo`, `/privacy`, and `/terms` return 200; an unknown path returns
+  the intended HTTP 404.
+- The deployed JS and CSS SHA-256 values match the implementation build.
+- The live 24-test Playwright suite passed. In a fresh normal browser context,
+  an offline invented token stayed at **Full campaign unlock** with no stored
+  verdict and no reset-tool choice.
+- Fresh desktop and 390×844 phone visits showed the job, audience, and first
+  action before scrolling. `/demo` showed stocked run three, its persistent
+  sample label, reset controls, and no real save after reset.
+- Axe found no violations on home, demo, Privacy, Terms, or 404. Lighthouse
+  mobile scored 100 performance, 100 accessibility, 100 best practices, and
+  100 SEO (LCP 1.45 s, TBT 0 ms, CLS 0). A 390×844 4× CPU sample measured
+  60.00 fps with 16.7 ms p95 intervals.
+- Payloads: JS 19,991 bytes raw / 7,428 gzip; CSS 11,745 bytes raw / 3,085
+  gzip; blueprint image 27,948 bytes.
 
-Run locally from a clean checkout:
+Evidence is in `.factory/qa-6/`. The catalog description is in
+`.factory/catalog-description.txt` and `/work/.evidence/catalog-description.txt`.
 
-```sh
-npm ci
-npm test
-npm run typecheck
-npm run lint
-npm run build
-npm audit --omit=dev
-npm audit
-```
+## Remaining dependency
 
-No product source or deployment was changed during verification. Register the
-billing product, repair first-verification gating, and correct claims coverage
-before requesting another independent verification.
+`GET https://api.sociobot.in/api/v1/products/finite-forge/checkout` still
+returns HTTP 404 (`enabled factory product`). The storefront link and client
+verification integration are correct, but this product has not been
+registered with the factory Sociobot billing workflow. No payment provider,
+mock payment flow, or invented credential was added. Register the $5
+one-time `finite-forge` product with return URL
+`https://finite-forge.sociobot.in/?license=<token>`, then repeat the real
+checkout-to-return verification before declaring release acceptance.
+
+## Earlier finding disposition
+
+The previous 24-tick deadline, five-run ending, real demo namespace, tool
+retention, routing, immutable cache, 404 structure, settings, keyboard/touch,
+frame-rate, and privacy findings remain covered by the current local and live
+suites. The only unresolved finding is the external billing registration above.
