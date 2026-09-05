@@ -23,6 +23,7 @@ const demoKey = 'demo:finite-forge:v4';
 const demoLicenseKey = 'demo:sb_license:finite-forge';
 const demoLicenseCacheKey = 'demo:sb_license_verdict:finite-forge';
 const verifyEndpoint = 'https://api.sociobot.in/api/v1/products/finite-forge/verify';
+const checkoutEndpoint = 'https://api.sociobot.in/api/v1/products/finite-forge/checkout';
 
 type DemoSave = { campaign: Campaign; settings: { motion: boolean; sound: boolean }; demoEntitled: boolean };
 type LicenseVerdict = { token: string; valid: boolean; checkedAt: number };
@@ -119,6 +120,13 @@ test('regression: the sample board exposes a populated 24-tick blueprint', async
   await expect(page.getByText('17 ticks left')).toBeVisible();
   await expect(page.locator('.tick-track i')).toHaveCount(PRODUCTION_TICKS);
   await expect(page.locator('.resource-grid')).toContainText('4');
+});
+
+test('@claim:checkout-available the advertised full-campaign URL redirects to hosted Sociobot checkout', async ({ request }) => {
+  const response = await request.get(checkoutEndpoint, { maxRedirects: 0 });
+  expect(response.status()).toBeGreaterThanOrEqual(300);
+  expect(response.status()).toBeLessThan(400);
+  expect(response.headers().location).toMatch(/^https:\/\/.+/);
 });
 
 test('@claim:campaign-final-ending a demo campaign reaches the genuine final ending after five runs', async ({ page }) => {

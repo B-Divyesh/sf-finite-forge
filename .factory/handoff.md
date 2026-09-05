@@ -1,59 +1,61 @@
-# Finite Forge verification 7 handoff
+# Finite Forge repair 7 handoff
 
 ## Result
 
-**FAIL — one external billing finding and zero untested claims.**
+**FAIL — checkout registration remains unavailable.**
 
-Implementation `c4cce27b42edb13501651aaae3f57f6fcdd0f3ea` is live at
-<https://finite-forge.sociobot.in>. The documentation baseline reviewed was
-`e35334412ab8e055513e579c379a24012c85927c`. Later changes in this handoff are
-reports and evidence only; no product code was modified.
+The product implementation remains
+`c4cce27b42edb13501651aaae3f57f6fcdd0f3ea`. The documentation baseline at the
+start of this repair was
+`690a52f74aa969f4ec9d3af49310f50bf365ea31`. This repair adds an external,
+outcome-based checkout regression check; it does not alter the shipped game
+client or its payment integration.
 
-All implementation checks pass. The remaining blocker is the unregistered
-`finite-forge` billing product: its advertised `$5` checkout returns HTTP 404,
-so a new buyer cannot receive a license or enter run two.
+## What changed
 
-## Verified
+- Added `checkout-available` to `.factory/claims.json`.
+- Added a Playwright integration check that makes a read-only request to the
+  advertised full-campaign URL with redirects disabled. It requires a 3xx
+  response with a hosted-checkout `Location`; it does not create a payment or
+  submit buyer data.
+- Kept the existing approved Sociobot endpoint and local-first game behavior
+  unchanged. No payment stub, provider credential, or alternate checkout was
+  introduced.
 
-- All 22 declared claim commands passed individually after a fresh `npm ci`.
-- `npm test` passed 7 Vitest and 24 Playwright tests; typecheck, lint, build,
-  production audit, and full audit passed.
-- The full live suite passed 24/24, and live HTML/assets byte-match the build.
-- Fresh 1440×900 desktop and 390×844 phone first views show the job, audience,
-  first action, and the active game board before scrolling.
-- The stocked one-click sample remains labeled, resets exactly, and leaves the
-  real save unchanged.
-- A fresh live run reached **Final beacon lit** after five runs, 30 blueprints,
-  and 419 ticks. A separate run reached **Sunset reached** at tick 24 and
-  recovered with retry.
-- Invalid input, malformed-save recovery, touch, pointer, keyboard, settings,
-  reduced motion, history focus, 200% reflow, route titles, legal pages,
-  privacy requests, and the designed 404 passed.
-- Fresh Axe scans found zero violations on every route. The factory URL check
-  reported no console errors.
-- Fresh Lighthouse mobile scored 100/100/100/100 with 1.1 s LCP, 0 ms TBT,
-  CLS 0, and 39 KiB transferred.
-- The license verifier returned a CORS-valid invalid response and enforced its
-  allowance with HTTP 429 and `Retry-After: 4`.
+## Verification
 
-## Evidence and commands
+From a clean `npm ci` install:
 
-Full report: `.factory/verification-7.md`
+- `npm run typecheck`, `npm run lint`, `npm run build`, `npm audit --omit=dev`,
+  and `npm audit` pass.
+- All 22 pre-existing declared claim commands pass individually, including the
+  deterministic five-run ending, sample isolation, restart, loss/retry,
+  controls, settings, privacy, and frame-rate checks.
+- The new command, `npx playwright test --grep @claim:checkout-available`,
+  fails correctly: the live checkout returns HTTP 404 instead of the required
+  hosted-checkout redirect. Consequently `npm test` also fails only at this
+  new contract check.
 
-Fresh evidence: `.factory/verification-7-evidence/`
-
-```sh
-npm ci
-npm test
-npm run typecheck
-npm run lint
-npm run build
-BASE_URL=https://finite-forge.sociobot.in npx playwright test
-```
+The actual response is from
+`https://api.sociobot.in/api/v1/products/finite-forge/checkout`, not the
+product's deliberate designed 404 route. It returns the recorded API error
+`enabled factory product` with status 404.
 
 ## Remaining action
 
-Register the `$5` one-time `finite-forge` product through the factory Sociobot
-billing workflow. Then verify checkout, return token, live verification, and
-entry into run two. This is an external billing-registration dependency, not a
-product-code defect. Do not replace it with a payment stub or direct provider.
+The factory billing workflow must register the one-time `$5` `finite-forge`
+product and its return URL. The documented `fleet/new-paid-product.sh` helper
+is not installed in this worker, and no product-scoped registration endpoint
+or factory credential was provided. I did not invent an undocumented API call
+or access another service's settings or secrets.
+
+After registration, rerun:
+
+```sh
+npx playwright test --grep @claim:checkout-available
+npm test
+BASE_URL=https://finite-forge.sociobot.in npx playwright test
+```
+
+Then check a real hosted checkout, its license return, Sociobot verification,
+and entry into run two. The static game itself needs no further code change.
