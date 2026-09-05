@@ -127,11 +127,32 @@ test('regression: the sample board exposes a populated 24-tick blueprint', async
   await expect(page.locator('.resource-grid')).toContainText('4');
 });
 
-test('@claim:checkout-available the advertised full-campaign URL redirects to hosted Sociobot checkout', async ({ request }) => {
-  const response = await request.get(checkoutEndpoint, { maxRedirects: 0 });
-  expect(response.status()).toBeGreaterThanOrEqual(300);
-  expect(response.status()).toBeLessThan(400);
-  expect(response.headers().location).toMatch(/^https:\/\/.+/);
+test('@claim:checkout-available the advertised full-campaign link opens its Dodo-hosted order summary', async ({ page, request }) => {
+  await seedDemo(page, completedFirstRun(), false);
+  await page.goto('/demo');
+
+  const buyLink = page.getByRole('link', { name: 'Buy full campaign — $5 once' });
+  await expect(buyLink).toBeVisible();
+  const advertisedCheckout = await buyLink.getAttribute('href');
+  expect(advertisedCheckout).toBe(checkoutEndpoint);
+
+  const redirect = await request.get(advertisedCheckout!, { maxRedirects: 0 });
+  expect(redirect.status()).toBe(303);
+  const hostedLocation = redirect.headers().location;
+  expect(hostedLocation).toBeTruthy();
+  const hostedUrl = new URL(hostedLocation!);
+  expect(hostedUrl.protocol).toBe('https:');
+  expect(hostedUrl.hostname).toBe('checkout.dodopayments.com');
+
+  const hostedResponse = await page.goto(advertisedCheckout!, { waitUntil: 'domcontentloaded' });
+  expect(hostedResponse?.status()).toBe(200);
+  expect(new URL(page.url()).hostname).toBe('checkout.dodopayments.com');
+  await expect(page).toHaveTitle('Sociobot | Checkout');
+  const hostedCheckout = page.locator('body');
+  await expect(hostedCheckout).toContainText('Order Summary');
+  await expect(hostedCheckout).toContainText('Finite Forge Full Campaign');
+  await expect(hostedCheckout).toContainText('$5.00');
+  await expect(hostedCheckout).toContainText(/One-time license unlock.*finite-forge\.sociobot\.in/i);
 });
 
 test('@claim:campaign-final-ending a demo campaign reaches the genuine final ending after five runs', async ({ page }) => {
