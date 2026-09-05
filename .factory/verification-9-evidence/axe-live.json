@@ -1,0 +1,27 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "violations": []
+  },
+  {
+    "path": "/demo",
+    "status": 200,
+    "violations": []
+  },
+  {
+    "path": "/privacy",
+    "status": 200,
+    "violations": []
+  },
+  {
+    "path": "/terms",
+    "status": 200,
+    "violations": []
+  },
+  {
+    "path": "/missing-plan",
+    "status": 404,
+    "violations": []
+  }
+]

@@ -1,0 +1,153 @@
+{
+  "desktop": {
+    "first": {
+      "status": 200,
+      "title": "Finite Forge — Build a beacon before sunset",
+      "h1": "Build a beacon before sunset.",
+      "audience": "For reset fans who want a 30–45 minute campaign with a deadline.",
+      "primary": "Try it with sample data",
+      "primaryExplanation": "Opens run three with stock and two tools.",
+      "scrollY": 0,
+      "boardBox": {
+        "x": 224,
+        "y": 752,
+        "width": 992,
+        "height": 843.1875
+      },
+      "h1Count": 1,
+      "mainCount": 1,
+      "lang": "en"
+    },
+    "sample": {
+      "url": "https://finite-forge.sociobot.in/demo",
+      "title": "Demo — Finite Forge",
+      "label": "Demo — sample data, nothing is saved",
+      "heading": "RUN 03 · BLUEPRINT 4/6 · 17 TICKS TO SUNSET",
+      "progress": "7 / 24 production ticks used. Every action spends one tick.",
+      "seeded": {
+        "run": 3,
+        "shift": 4,
+        "tick": 7,
+        "deadline": 24,
+        "goal": 18,
+        "stock": {
+          "ore": 4,
+          "parts": 3,
+          "charge": 5
+        },
+        "owned": [
+          "bellows",
+          "pattern"
+        ],
+        "status": "active",
+        "completedRuns": 2,
+        "completedShifts": 15,
+        "totalTicks": 278
+      },
+      "realUnchangedAfterEnter": true,
+      "labelAfterPlay": "Demo — sample data, nothing is saved",
+      "tickAfterPlay": 8,
+      "reset": {
+        "run": 3,
+        "shift": 4,
+        "tick": 7,
+        "stock": {
+          "ore": 4,
+          "parts": 3,
+          "charge": 5
+        },
+        "owned": [
+          "bellows",
+          "pattern"
+        ]
+      },
+      "realUnchangedAfterReset": true,
+      "exit": {
+        "url": "https://finite-forge.sociobot.in/",
+        "demoRemoved": true,
+        "realRestored": true
+      }
+    },
+    "consoleErrors": [],
+    "pageErrors": [],
+    "offOriginBeforeLicense": []
+  },
+  "phone": {
+    "first": {
+      "status": 200,
+      "title": "Finite Forge — Build a beacon before sunset",
+      "h1": "Build a beacon before sunset.",
+      "audience": "For reset fans who want a 30–45 minute campaign with a deadline.",
+      "primary": "Try it with sample data",
+      "primaryExplanation": "Opens run three with stock and two tools.",
+      "scrollY": 0,
+      "boardBox": {
+        "x": 16,
+        "y": 533.21875,
+        "width": 358,
+        "height": 1346.375
+      },
+      "h1Count": 1,
+      "mainCount": 1,
+      "lang": "en"
+    },
+    "sample": {
+      "url": "https://finite-forge.sociobot.in/demo",
+      "title": "Demo — Finite Forge",
+      "label": "Demo — sample data, nothing is saved",
+      "heading": "RUN 03 · BLUEPRINT 4/6 · 17 TICKS TO SUNSET",
+      "progress": "7 / 24 production ticks used. Every action spends one tick.",
+      "seeded": {
+        "run": 3,
+        "shift": 4,
+        "tick": 7,
+        "deadline": 24,
+        "goal": 18,
+        "stock": {
+          "ore": 4,
+          "parts": 3,
+          "charge": 5
+        },
+        "owned": [
+          "bellows",
+          "pattern"
+        ],
+        "status": "active",
+        "completedRuns": 2,
+        "completedShifts": 15,
+        "totalTicks": 278
+      },
+      "realUnchangedAfterEnter": true,
+      "labelAfterPlay": "Demo — sample data, nothing is saved",
+      "tickAfterPlay": 8,
+      "reset": {
+        "run": 3,
+        "shift": 4,
+        "tick": 7,
+        "stock": {
+          "ore": 4,
+          "parts": 3,
+          "charge": 5
+        },
+        "owned": [
+          "bellows",
+          "pattern"
+        ]
+      },
+      "realUnchangedAfterReset": true,
+      "exit": {
+        "url": "https://finite-forge.sociobot.in/",
+        "demoRemoved": true,
+        "realRestored": true
+      }
+    },
+    "consoleErrors": [],
+    "pageErrors": [],
+    "offOriginBeforeLicense": []
+  },
+  "keyboard": {
+    "firstFocus": "Skip to game",
+    "skipTarget": "main",
+    "tickAfterM": 8
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "invalid_license_status": 200,
+  "invalid_license_response": {
+    "valid": false,
+    "reason": "invalid",
+    "expires_at": null
+  },
+  "cache_control": "no-store",
+  "cors_origin": "https://finite-forge.sociobot.in",
+  "first_rate_limited_request": 31,
+  "rate_limit_status": 429,
+  "retry_after_seconds": 4
+}

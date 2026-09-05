@@ -1,0 +1,232 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "title": "Finite Forge — Build a beacon before sunset",
+      "h1": [
+        "Build a beacon before sunset."
+      ],
+      "lang": "en",
+      "main": 1,
+      "header": 1,
+      "footer": 1,
+      "canonical": "https://finite-forge.sociobot.in/",
+      "descriptionLength": 66
+    },
+    {
+      "path": "/demo",
+      "status": 200,
+      "title": "Demo — Finite Forge",
+      "h1": [
+        "Build a beacon before sunset."
+      ],
+      "lang": "en",
+      "main": 1,
+      "header": 1,
+      "footer": 1,
+      "canonical": "https://finite-forge.sociobot.in/demo",
+      "descriptionLength": 66
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "title": "Privacy — Finite Forge",
+      "h1": [
+        "Privacy"
+      ],
+      "lang": "en",
+      "main": 1,
+      "header": 1,
+      "footer": 1,
+      "canonical": "https://finite-forge.sociobot.in/privacy",
+      "descriptionLength": 121
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "title": "Terms — Finite Forge",
+      "h1": [
+        "Terms"
+      ],
+      "lang": "en",
+      "main": 1,
+      "header": 1,
+      "footer": 1,
+      "canonical": "https://finite-forge.sociobot.in/terms",
+      "descriptionLength": 140
+    },
+    {
+      "path": "/missing-plan",
+      "status": 404,
+      "title": "Not found — Finite Forge",
+      "h1": [
+        "Page not found."
+      ],
+      "lang": "en",
+      "main": 1,
+      "header": 1,
+      "footer": 1,
+      "canonical": "https://finite-forge.sociobot.in/404",
+      "descriptionLength": 47
+    }
+  ],
+  "links": [
+    {
+      "href": "https://finite-forge.sociobot.in/",
+      "status": 200
+    },
+    {
+      "href": "https://finite-forge.sociobot.in/#how",
+      "status": 200
+    },
+    {
+      "href": "https://finite-forge.sociobot.in/#main",
+      "status": 200
+    },
+    {
+      "href": "https://finite-forge.sociobot.in/demo",
+      "status": 200
+    },
+    {
+      "href": "https://finite-forge.sociobot.in/demo#main",
+      "status": 200
+    },
+    {
+      "href": "https://finite-forge.sociobot.in/missing-plan#main",
+      "status": 404
+    },
+    {
+      "href": "https://finite-forge.sociobot.in/privacy",
+      "status": 200
+    },
+    {
+      "href": "https://finite-forge.sociobot.in/privacy#main",
+      "status": 200
+    },
+    {
+      "href": "https://finite-forge.sociobot.in/terms",
+      "status": 200
+    },
+    {
+      "href": "https://finite-forge.sociobot.in/terms#main",
+      "status": 200
+    }
+  ],
+  "history": {
+    "forward": {
+      "title": "Privacy — Finite Forge",
+      "h1": "Privacy",
+      "focus": "H1:Privacy"
+    },
+    "back": {
+      "url": "https://finite-forge.sociobot.in/",
+      "title": "Finite Forge — Build a beacon before sunset",
+      "h1": "Build a beacon before sunset.",
+      "focus": "H1:Build a beacon before sunset."
+    }
+  },
+  "layout": {
+    "reflow640": {
+      "scrollWidth": 640,
+      "clientWidth": 640
+    },
+    "reducedMotionDuration": "1e-05s",
+    "targets": [
+      {
+        "name": "Skip to game",
+        "width": 117.390625,
+        "height": 44
+      },
+      {
+        "name": "FINITEFORGE",
+        "width": 127.96875,
+        "height": 44
+      },
+      {
+        "name": "Demo",
+        "width": 44,
+        "height": 46
+      },
+      {
+        "name": "How it works",
+        "width": 90.6875,
+        "height": 46
+      },
+      {
+        "name": "Privacy",
+        "width": 52.453125,
+        "height": 46
+      },
+      {
+        "name": "Reset demo",
+        "width": 112.703125,
+        "height": 44
+      },
+      {
+        "name": "Start for real",
+        "width": 117.140625,
+        "height": 44
+      },
+      {
+        "name": "Try it with sample data",
+        "width": 201.609375,
+        "height": 44
+      },
+      {
+        "name": "Settings",
+        "width": 79.125,
+        "height": 44
+      },
+      {
+        "name": "MMine ore+3 ore",
+        "width": 328,
+        "height": 62
+      },
+      {
+        "name": "SShape parts1 ore → +2 parts",
+        "width": 328,
+        "height": 62
+      },
+      {
+        "name": "CCharge beacon1 part → +1 charge",
+        "width": 328,
+        "height": 62
+      },
+      {
+        "name": "Privacy",
+        "width": 52.453125,
+        "height": 44
+      },
+      {
+        "name": "Terms",
+        "width": 44,
+        "height": 44
+      }
+    ],
+    "smallTargets": []
+  },
+  "input": {
+    "beforeUnknown": 0,
+    "afterUnknown": 0,
+    "afterMissingMaterial": 1,
+    "stockAfterMissingMaterial": {
+      "ore": 0,
+      "parts": 0,
+      "charge": 0
+    },
+    "liveMessage": "Charge beacon needed material. The production tick was still used."
+  },
+  "settings": {
+    "initiallyHidden": true,
+    "motionClass": "game-shell motion-off",
+    "animationName": "none",
+    "persisted": {
+      "motion": false,
+      "sound": true
+    }
+  },
+  "platform": {
+    "serviceWorkers": 0
+  }
+}

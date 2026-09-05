@@ -1,0 +1,13 @@
+{
+  "redirect_status": 303,
+  "redirect_protocol": "https:",
+  "redirect_host": "checkout.dodopayments.com",
+  "hosted_status": 200,
+  "hosted_title": "Sociobot | Checkout",
+  "order_summary_visible": true,
+  "product_visible": "Finite Forge Full Campaign",
+  "price_visible": "$5.00",
+  "one_time_offer_visible": true,
+  "payment_attempted": false,
+  "entitlement_attempted": false
+}
