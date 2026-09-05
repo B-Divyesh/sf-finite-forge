@@ -7,9 +7,11 @@
 The product implementation remains
 `c4cce27b42edb13501651aaae3f57f6fcdd0f3ea`. The documentation baseline at the
 start of this repair was
-`690a52f74aa969f4ec9d3af49310f50bf365ea31`. This repair adds an external,
-outcome-based checkout regression check; it does not alter the shipped game
-client or its payment integration.
+`690a52f74aa969f4ec9d3af49310f50bf365ea31`. The checkout regression commit is
+`7f040e48dbe0d0f7dad7953725c6beb895bd3a56`; the fresh evidence documentation
+commit is `2611d4aff7cf94e88ff3b01de6dfba51d3c106d4`. This repair adds an
+external, outcome-based checkout regression check; it does not alter the
+shipped game client or its payment integration.
 
 ## What changed
 
