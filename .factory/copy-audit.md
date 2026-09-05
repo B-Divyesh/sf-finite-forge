@@ -1,6 +1,6 @@
 # Copy audit
 
-Audited 2026-09-02. Counts treat numbers and hyphenated terms as one word.
+Audited 2026-09-05. Counts treat numbers and hyphenated terms as one word.
 No landing sentence exceeds 22 words. No banned marketing word appears.
 
 ## First screen
@@ -50,6 +50,10 @@ The job and first action fit in one breath.
 | At least 400 decisions, planned at five seconds each, take 33.3 minutes. | 12 | Pass |
 | A five-run strategy forge with a sunset deadline. | 8 | Pass |
 | Blueprint illustration uses original generated imagery. | 6 | Pass |
+| A new license opens paid runs after Sociobot checks it. | 10 | Pass |
+| A previously checked license keeps paid progress available while offline. | 10 | Pass |
+| Page not found. | 3 | Pass |
+| This address does not open a Finite Forge page. | 9 | Pass |
 
 ## Terminology
 

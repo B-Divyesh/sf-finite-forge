@@ -27,9 +27,9 @@ import {
 } from './engine';
 
 type Settings = { motion: boolean; sound: boolean };
-type Save = { campaign: Campaign; settings: Settings };
-type LicenseCache = { valid: boolean; checkedAt: number };
-type LicenseState = { token: string | null; active: boolean; checking: boolean };
+type Save = { campaign: Campaign; settings: Settings; demoEntitled?: boolean };
+type LicenseCache = { token: string; valid: boolean; checkedAt: number };
+type LicenseState = { token: string | null; active: boolean; checking: boolean; networkError: boolean };
 
 const realKey = 'finite-forge:v4';
 const demoKey = 'demo:finite-forge:v4';
@@ -43,6 +43,7 @@ let notice = '';
 let settingsOpen = false;
 let actionPulse = 0;
 let audioContext: AudioContext | undefined;
+let lastFailedLicenseToken: string | null = null;
 
 function isDemoRoute() {
   return location.pathname === '/demo' || new URLSearchParams(location.search).get('demo') === '1';
@@ -72,25 +73,43 @@ function removeStorage(key: string) {
   }
 }
 
+function scopedLicenseKey(key: string) {
+  return demo ? `demo:${key}` : key;
+}
+
+function readLicenseCache(token: string | null): LicenseCache | null {
+  if (!token) return null;
+  try {
+    const cache = JSON.parse(readStorage(scopedLicenseKey(licenseCacheKey)) || 'null') as Partial<LicenseCache> | null;
+    return cache && cache.token === token && typeof cache.valid === 'boolean' && Number.isFinite(cache.checkedAt)
+      ? cache as LicenseCache
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveLicenseCache(token: string, valid: boolean) {
+  writeStorage(scopedLicenseKey(licenseCacheKey), JSON.stringify({ token, valid, checkedAt: Date.now() } satisfies LicenseCache));
+}
+
 function captureLicenseReturn() {
   const url = new URL(location.href);
   const token = url.searchParams.get('license')?.trim();
   if (!token) return;
-  writeStorage(licenseKey, token);
-  writeStorage(licenseCacheKey, JSON.stringify({ valid: true, checkedAt: 0 } satisfies LicenseCache));
+  writeStorage(scopedLicenseKey(licenseKey), token);
+  // A token from checkout has never been verified in this browser. It must
+  // not inherit an old verdict for a different token.
+  removeStorage(scopedLicenseKey(licenseCacheKey));
+  lastFailedLicenseToken = null;
   url.searchParams.delete('license');
   history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
 }
 
 function readLicense(): LicenseState {
-  const token = readStorage(licenseKey)?.trim() || null;
-  if (!token) return { token: null, active: false, checking: false };
-  try {
-    const cache = JSON.parse(readStorage(licenseCacheKey) || 'null') as LicenseCache | null;
-    return { token, active: cache?.valid !== false, checking: false };
-  } catch {
-    return { token, active: true, checking: false };
-  }
+  const token = readStorage(scopedLicenseKey(licenseKey))?.trim() || null;
+  const cache = readLicenseCache(token);
+  return { token, active: cache?.valid === true, checking: false, networkError: false };
 }
 
 captureLicenseReturn();
@@ -107,7 +126,9 @@ function sample(): Save {
     totalTicks: 278,
     stock: { ore: 4, parts: 3, charge: 5 }
   };
-  return { campaign, settings: { motion: true, sound: false } };
+  // The sample includes a sandbox-only campaign entitlement so players can
+  // freely try later reset tools without reading or changing a real license.
+  return { campaign, settings: { motion: true, sound: false }, demoEntitled: true };
 }
 
 function validSave(value: unknown): value is Save {
@@ -135,13 +156,21 @@ function validSave(value: unknown): value is Save {
 }
 
 function load() {
-  demo = isDemoRoute();
+  const nextDemo = isDemoRoute();
+  if (nextDemo !== demo) {
+    demo = nextDemo;
+    license = readLicense();
+    lastFailedLicenseToken = null;
+  }
+  demo = nextDemo;
   const key = demo ? demoKey : realKey;
   try {
     const parsed: unknown = JSON.parse(readStorage(key) || 'null');
     save = validSave(parsed) ? parsed : (demo ? sample() : fresh());
+    const legacyDemoSave = demo && !Object.hasOwn(save, 'demoEntitled');
+    if (legacyDemoSave) save.demoEntitled = true;
     save.settings = { motion: save.settings.motion !== false, sound: save.settings.sound === true };
-    if (!validSave(parsed)) writeStorage(key, JSON.stringify(save));
+    if (!validSave(parsed) || legacyDemoSave) writeStorage(key, JSON.stringify(save));
   } catch {
     save = demo ? sample() : fresh();
     writeStorage(key, JSON.stringify(save));
@@ -167,28 +196,29 @@ function setPage(title: string, description: string) {
 }
 
 function cachedLicenseIsCurrent() {
-  try {
-    const cache = JSON.parse(readStorage(licenseCacheKey) || 'null') as LicenseCache | null;
-    return Boolean(cache && Date.now() - cache.checkedAt < 24 * 60 * 60 * 1000);
-  } catch {
-    return false;
-  }
+  const cache = readLicenseCache(license.token);
+  return Boolean(cache && Date.now() - cache.checkedAt < 24 * 60 * 60 * 1000);
 }
 
 async function verifyLicense() {
-  if (demo || !license.token || license.checking || cachedLicenseIsCurrent()) return;
+  if (!license.token || license.checking || cachedLicenseIsCurrent() || lastFailedLicenseToken === license.token) return;
   license.checking = true;
+  license.networkError = false;
+  render();
   try {
     const response = await fetch(`${billingBase}/verify?license=${encodeURIComponent(license.token)}`);
     const result = await response.json() as { valid?: boolean };
     const valid = response.ok && result.valid === true;
-    writeStorage(licenseCacheKey, JSON.stringify({ valid, checkedAt: Date.now() } satisfies LicenseCache));
-    license = { ...license, active: valid, checking: false };
+    saveLicenseCache(license.token, valid);
+    license = { ...license, active: valid, checking: false, networkError: false };
     if (!valid) notice = 'License no longer active. Buy the full campaign or paste an active license.';
     render();
   } catch {
-    license = { ...license, checking: false };
-    // Keep the optimistic first paint. A failed network check never blocks a buyer mid-campaign.
+    lastFailedLicenseToken = license.token;
+    // A previous verified verdict remains usable offline. A fresh token does
+    // not unlock anything until Sociobot has successfully verified it.
+    license = { ...license, checking: false, networkError: true };
+    render();
   }
 }
 
@@ -199,16 +229,16 @@ function acceptLicense(token: string) {
     render();
     return;
   }
-  writeStorage(licenseKey, clean);
-  writeStorage(licenseCacheKey, JSON.stringify({ valid: true, checkedAt: 0 } satisfies LicenseCache));
-  license = { token: clean, active: true, checking: false };
+  writeStorage(scopedLicenseKey(licenseKey), clean);
+  removeStorage(scopedLicenseKey(licenseCacheKey));
+  lastFailedLicenseToken = null;
+  license = { token: clean, active: false, checking: false, networkError: false };
   notice = 'License saved. Checking it now.';
   render();
-  void verifyLicense();
 }
 
 function canContinueCampaign() {
-  return demo || license.active;
+  return demo ? save.demoEntitled === true || license.active : license.active;
 }
 
 function playCue(success = false) {
@@ -275,7 +305,11 @@ function retry() {
 
 function resetDemo() {
   removeStorage(demoKey);
+  removeStorage(scopedLicenseKey(licenseKey));
+  removeStorage(scopedLicenseKey(licenseCacheKey));
   save = sample();
+  license = readLicense();
+  lastFailedLicenseToken = null;
   notice = 'Sample forge restored in run three.';
   persist();
   render();
@@ -283,6 +317,8 @@ function resetDemo() {
 
 function startReal() {
   removeStorage(demoKey);
+  removeStorage(scopedLicenseKey(licenseKey));
+  removeStorage(scopedLicenseKey(licenseCacheKey));
   nav('/');
 }
 
@@ -295,7 +331,7 @@ function footer() {
 }
 
 function demoBanner() {
-  return demo ? `<aside class="demo" role="status"><b>Demo — sample data, nothing is saved</b><span>Run three starts stocked with two tools.</span><button data-reset-demo>Reset demo</button><button data-start-real>Start for real</button></aside>` : '';
+  return demo ? `<div class="demo" role="status"><b>Demo — sample data, nothing is saved</b><span>Run three starts stocked with two tools.</span><button data-reset-demo>Reset demo</button><button data-start-real>Start for real</button></div>` : '';
 }
 
 function toolList() {
@@ -332,7 +368,12 @@ function activeBoard() {
 }
 
 function unlockPanel() {
-  return `<section class="end-panel unlock-panel"><h2>Full campaign unlock</h2><p>Run one is free. Pay $5 once for runs two through five.</p><a class="primary linkbutton" href="${billingBase}/checkout">Buy full campaign — $5 once</a><form data-license-form><label for="license-token">Have a license? Paste it.</label><div><input id="license-token" name="license" autocomplete="off" spellcheck="false" required><button type="submit">Restore license</button></div></form><p class="license-status" aria-live="polite">${license.checking ? 'Checking license…' : 'Sociobot and Dodo are the merchant of record. Refunds revoke the license.'}</p></section>`;
+  const status = license.checking
+    ? 'Checking license…'
+    : license.networkError && !license.active
+      ? 'Could not verify this license. Connect to the internet, then try again.'
+      : 'Sociobot and Dodo are the merchant of record. Refunds revoke the license.';
+  return `<section class="end-panel unlock-panel"><h2>Full campaign unlock</h2><p>Run one is free. Pay $5 once for runs two through five.</p><a class="primary linkbutton" href="${billingBase}/checkout">Buy full campaign — $5 once</a><form data-license-form><label for="license-token">Have a license? Paste it.</label><div><input id="license-token" name="license" autocomplete="off" spellcheck="false" required><button type="submit">Restore license</button></div></form>${license.networkError && !license.active ? '<button class="retry-license" data-retry-license>Try license check again</button>' : ''}<p class="license-status" aria-live="polite">${status}</p></section>`;
 }
 
 function endPanel() {
@@ -361,12 +402,12 @@ function home() {
 
 function simplePage(kind: 'privacy' | 'terms' | '404') {
   const data = kind === 'privacy'
-    ? ['Privacy — Finite Forge', 'Privacy', 'Finite Forge stores campaign progress and settings in your browser. It sends no analytics or game data to another service. A buyer’s license is checked with Sociobot.']
+    ? ['Privacy — Finite Forge', 'Privacy', 'Finite Forge stores progress and settings in your browser. It has no analytics. Buyer licenses are checked with Sociobot.']
     : kind === 'terms'
       ? ['Terms — Finite Forge', 'Terms', 'Run one is free. A $5 one-time license adds runs two through five. Sociobot and Dodo are the merchant of record. Refunds revoke the license.']
-      : ['Not found — Finite Forge', 'This page is not in the forge.', 'Return to the forge board to continue your campaign.'];
+      : ['Not found — Finite Forge', 'Page not found.', 'This address does not open a Finite Forge page. Return to the game board.'];
   setPage(data[0], data[2]);
-  return `${header()}<main id="main" tabindex="-1" class="document"><h1 tabindex="-1">${data[1]}</h1><p>${data[2]}</p>${kind === '404' ? '<a class="primary linkbutton" href="/" data-link>Return to the forge</a>' : ''}</main>${footer()}<p class="sr" aria-live="polite">${data[1]}</p>`;
+  return `${header()}<main id="main" tabindex="-1" class="document"><h1 tabindex="-1">${data[1]}</h1><p>${data[2]}</p>${kind === '404' ? '<a class="primary linkbutton" href="/" data-link>Return to game board</a>' : ''}</main>${footer()}<p class="sr" aria-live="polite">${data[1]}</p>`;
 }
 
 function wire() {
@@ -385,6 +426,11 @@ function wire() {
   app.querySelector<HTMLFormElement>('[data-license-form]')?.addEventListener('submit', event => {
     event.preventDefault();
     acceptLicense(new FormData(event.currentTarget as HTMLFormElement).get('license')?.toString() || '');
+  });
+  app.querySelector<HTMLButtonElement>('[data-retry-license]')?.addEventListener('click', () => {
+    lastFailedLicenseToken = null;
+    license = { ...license, networkError: false };
+    void verifyLicense();
   });
 }
 

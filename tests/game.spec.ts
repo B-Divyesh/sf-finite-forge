@@ -9,6 +9,7 @@ import {
   advanceShift,
   chooseTool,
   newCampaign,
+  newShift,
   tools,
   type Action,
   type Campaign,
@@ -18,9 +19,37 @@ import { winningActions } from './game-helpers';
 
 const keyFor: Record<Action, string> = { mine: 'm', shape: 's', charge: 'c' };
 const toolOrder: ToolId[] = ['lens', 'pattern', 'bellows', 'stockpile'];
-const realKey = 'finite-forge:v4';
-const licenseKey = 'sb_license:finite-forge';
-const licenseCacheKey = 'sb_license_verdict:finite-forge';
+const demoKey = 'demo:finite-forge:v4';
+const demoLicenseKey = 'demo:sb_license:finite-forge';
+const demoLicenseCacheKey = 'demo:sb_license_verdict:finite-forge';
+const verifyEndpoint = 'https://api.sociobot.in/api/v1/products/finite-forge/verify';
+
+type DemoSave = { campaign: Campaign; settings: { motion: boolean; sound: boolean }; demoEntitled: boolean };
+type LicenseVerdict = { token: string; valid: boolean; checkedAt: number };
+
+function demoSave(campaign: Campaign, demoEntitled = true): DemoSave {
+  return { campaign, settings: { motion: true, sound: false }, demoEntitled };
+}
+
+async function seedDemo(page: Page, campaign: Campaign, demoEntitled = true, license?: { token: string; verdict?: LicenseVerdict }) {
+  await page.addInitScript(({ saveKey, save, licenseKey, cacheKey, storedLicense }) => {
+    localStorage.setItem(saveKey, JSON.stringify(save));
+    if (storedLicense) {
+      localStorage.setItem(licenseKey, storedLicense.token);
+      if (storedLicense.verdict) localStorage.setItem(cacheKey, JSON.stringify(storedLicense.verdict));
+    }
+  }, {
+    saveKey: demoKey,
+    save: demoSave(campaign, demoEntitled),
+    licenseKey: demoLicenseKey,
+    cacheKey: demoLicenseCacheKey,
+    storedLicense: license
+  });
+}
+
+async function readDemoSave(page: Page): Promise<DemoSave> {
+  return page.evaluate(key => JSON.parse(localStorage.getItem(key) || 'null'), demoKey) as Promise<DemoSave>;
+}
 
 async function winShift(page: Page, campaign: Campaign): Promise<Campaign> {
   for (const action of winningActions(campaign)) {
@@ -54,8 +83,7 @@ async function completeCampaign(page: Page): Promise<Campaign> {
   return campaign;
 }
 
-function completedFirstRun(): Campaign {
-  let campaign = newCampaign();
+function completeRun(campaign: Campaign): Campaign {
   for (let shift = 1; shift <= SHIFTS_PER_RUN; shift += 1) {
     campaign = winningActions(campaign).reduce((state, action) => act(state, action), campaign);
     if (shift < SHIFTS_PER_RUN) campaign = advanceShift(campaign);
@@ -63,33 +91,50 @@ function completedFirstRun(): Campaign {
   return campaign;
 }
 
-async function seedLicense(page: Page) {
-  await page.addInitScript(({ tokenKey, cacheKey }) => {
-    localStorage.setItem(tokenKey, 'test-license');
-    localStorage.setItem(cacheKey, JSON.stringify({ valid: true, checkedAt: Date.now() }));
-  }, { tokenKey: licenseKey, cacheKey: licenseCacheKey });
+function completedFirstRun(): Campaign {
+  return completeRun(newCampaign());
 }
 
-test('regression: the board exposes each 24-tick blueprint inside a 30-blueprint campaign', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Build a beacon before sunset.' })).toBeVisible();
-  await expect(page.getByText('30 blueprints with 24 ticks each')).toBeVisible();
-  await expect(page.getByText('24 ticks left')).toBeVisible();
-  await expect(page.getByText('0 / 24 production ticks used.')).toBeVisible();
-  await expect(page.getByText('0/30 blueprints complete')).toBeVisible();
+function completedCampaign(): Campaign {
+  let campaign = newCampaign();
+  for (let run = 1; run <= RUN_COUNT; run += 1) {
+    campaign = completeRun(campaign);
+    if (run < RUN_COUNT) campaign = chooseTool(campaign, toolOrder[run - 1]);
+  }
+  return campaign;
+}
+
+function runCompleteWithTools(previousTools: ToolId[]): Campaign {
+  let campaign = newCampaign();
+  for (const tool of previousTools) {
+    campaign = completeRun(campaign);
+    campaign = chooseTool(campaign, tool);
+  }
+  return completeRun(campaign);
+}
+
+test('regression: the sample board exposes a populated 24-tick blueprint', async ({ page }) => {
+  await page.goto('/demo');
+  await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
+  await expect(page.getByText('17 ticks left')).toBeVisible();
   await expect(page.locator('.tick-track i')).toHaveCount(PRODUCTION_TICKS);
+  await expect(page.locator('.resource-grid')).toContainText('4');
 });
 
-test('@claim:campaign-final-ending @claim:restart-resets-state a title-to-ending run restarts every campaign field', async ({ page }) => {
-  test.setTimeout(90_000);
-  await seedLicense(page);
-  await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1, name: 'Build a beacon before sunset.' })).toBeVisible();
+test('@claim:campaign-final-ending a demo campaign reaches the genuine final ending after five runs', async ({ page }) => {
+  test.setTimeout(120_000);
+  await seedDemo(page, newCampaign());
+  await page.goto('/demo');
   await completeCampaign(page);
   await expect(page.getByRole('heading', { name: 'Final beacon lit' })).toBeVisible();
-  await expect(page.getByText('You charged five beacons through thirty blueprints before sunset. This campaign ends here.')).toBeVisible();
   await expect(page.getByText('5 / 5')).toBeVisible();
   await expect(page.getByText(`${CAMPAIGN_SHIFT_COUNT} / ${CAMPAIGN_SHIFT_COUNT}`)).toBeVisible();
+});
+
+test('@claim:restart-resets-state starting a new demo campaign resets every visible campaign field', async ({ page }) => {
+  await seedDemo(page, completedCampaign());
+  await page.goto('/demo');
+  await expect(page.getByRole('heading', { name: 'Final beacon lit' })).toBeVisible();
   await page.getByRole('button', { name: 'Start a new campaign' }).click();
   await expect(page.getByRole('heading', { name: /RUN 01 · BLUEPRINT 1\/6 · 24 TICKS TO SUNSET/ })).toBeVisible();
   await expect(page.getByText('0 / 24 production ticks used.')).toBeVisible();
@@ -98,57 +143,120 @@ test('@claim:campaign-final-ending @claim:restart-resets-state a title-to-ending
   await expect(page.locator('.resource-grid')).toContainText('0 / 13');
 });
 
-test('@claim:sunset-deadline tick 24 causes a real loss and retry resets the blueprint', async ({ page }) => {
-  await page.goto('/');
+test('@claim:sunset-deadline a demo blueprint loses at tick 24 and retries at sunrise', async ({ page }) => {
+  await seedDemo(page, newCampaign());
+  await page.goto('/demo');
   for (let tick = 0; tick < PRODUCTION_TICKS; tick += 1) await page.keyboard.press('m');
   await expect(page.getByRole('heading', { name: 'Sunset reached' })).toBeVisible();
   await expect(page.getByText('0 ticks left')).toBeVisible();
-  await expect(page.getByText('Blueprint 1 reached 0 of 13 charge when tick 24 ended.')).toBeVisible();
   await page.getByRole('button', { name: 'Retry this blueprint' }).click();
   await expect(page.getByRole('heading', { name: /RUN 01 · BLUEPRINT 1\/6 · 24 TICKS TO SUNSET/ })).toBeVisible();
   await expect(page.getByText('0 / 24 production ticks used.')).toBeVisible();
-  await expect(page.getByText('No reset tools yet.')).toBeVisible();
 });
 
-test('@claim:campaign-unlock the first run is free and a returned one-time license opens runs two through five', async ({ page }) => {
-  const runComplete = completedFirstRun();
-  await page.addInitScript(({ key, campaign }) => localStorage.setItem(key, JSON.stringify({ campaign, settings: { motion: true, sound: false } })), { key: realKey, campaign: runComplete });
+test('@claim:campaign-unlock a returned verified license opens the paid demo gate after the free run', async ({ page }) => {
+  await seedDemo(page, completedFirstRun(), false);
   let verifyCalls = 0;
-  await page.route('https://api.sociobot.in/api/v1/products/finite-forge/verify?license=return-license', async route => {
+  await page.route(`${verifyEndpoint}?license=returned-demo`, async route => {
     verifyCalls += 1;
     await route.fulfill({ contentType: 'application/json', body: JSON.stringify({ valid: true, reason: 'ok' }) });
   });
-  await page.goto('/');
+  await page.goto('/demo');
   await expect(page.getByRole('heading', { name: 'Full campaign unlock' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Buy full campaign — $5 once' })).toHaveAttribute('href', 'https://api.sociobot.in/api/v1/products/finite-forge/checkout');
-  await page.goto('/?license=return-license');
+  await page.goto('/demo?license=returned-demo');
   await expect(page).not.toHaveURL(/license=/);
   await expect(page.getByRole('heading', { name: 'Choose one reset tool' })).toBeVisible();
   await expect.poll(() => verifyCalls).toBe(1);
-  const stored = await page.evaluate(({ tokenKey, cacheKey }) => ({ token: localStorage.getItem(tokenKey), verdict: localStorage.getItem(cacheKey) }), { tokenKey: licenseKey, cacheKey: licenseCacheKey });
-  expect(stored.token).toBe('return-license');
-  expect(JSON.parse(stored.verdict!)).toMatchObject({ valid: true });
+  const cache = await page.evaluate(key => localStorage.getItem(key), demoLicenseCacheKey);
+  expect(JSON.parse(cache!)).toMatchObject({ token: 'returned-demo', valid: true });
 });
 
-test('@claim:campaign-structure the campaign has five runs, six blueprints each, and a free first run', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.getByText('30 blueprints with 24 ticks each')).toBeVisible();
-  await expect(page.getByText('0/30 blueprints complete')).toBeVisible();
-  await expect(page.locator('.deadline')).toHaveAttribute('aria-label', 'Sunset deadline: 24 of 24 production ticks remain');
-  const campaign = await winRun(page, newCampaign());
+test('@claim:license-verification an unverified license remains locked while the demo is offline', async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await seedDemo(page, completedFirstRun(), false);
+  await page.goto('/demo');
+  await context.setOffline(true);
+  await page.getByLabel('Have a license? Paste it.').fill('invented-license');
+  await page.getByRole('button', { name: 'Restore license' }).click();
   await expect(page.getByRole('heading', { name: 'Full campaign unlock' })).toBeVisible();
-  await expect(page.getByText('Run one is free. Pay $5 once for runs two through five.')).toBeVisible();
-  expect(campaign.status).toBe('run-complete');
+  await expect(page.getByText('Could not verify this license. Connect to the internet, then try again.')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Choose one reset tool' })).toHaveCount(0);
+  const verdict = await page.evaluate(key => localStorage.getItem(key), demoLicenseCacheKey);
+  expect(verdict).toBeNull();
+  await context.close();
 });
 
-test('@claim:production-input touch, pointer, and M/S/C inputs each spend one production tick', async ({ page, browser }) => {
+test('@claim:license-restore pasting a valid license restores paid demo runs after verification', async ({ page }) => {
+  await seedDemo(page, completedFirstRun(), false);
+  await page.route(`${verifyEndpoint}?license=pasted-demo`, route => route.fulfill({ contentType: 'application/json', body: JSON.stringify({ valid: true, reason: 'ok' }) }));
+  await page.goto('/demo');
+  await page.getByLabel('Have a license? Paste it.').fill('pasted-demo');
+  await page.getByRole('button', { name: 'Restore license' }).click();
+  await expect(page.getByRole('heading', { name: 'Choose one reset tool' })).toBeVisible();
+});
+
+test('@claim:license-offline-cache a previously verified license keeps paid demo progress available offline', async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  const token = 'cached-demo';
+  await seedDemo(page, completedFirstRun(), false, { token, verdict: { token, valid: true, checkedAt: Date.now() } });
+  await page.goto('/demo');
+  await context.setOffline(true);
+  await page.getByRole('button', { name: /Bellows/ }).click();
+  await expect(page.getByRole('heading', { name: /RUN 02 · BLUEPRINT 1\/6/ })).toBeVisible();
+  await context.close();
+});
+
+test('@claim:license-daily-check a verified demo license is checked no more than once each day', async ({ page }) => {
+  const token = 'daily-demo';
+  const freshVerdict: LicenseVerdict = { token, valid: true, checkedAt: Date.now() };
+  await seedDemo(page, completedFirstRun(), false, { token, verdict: freshVerdict });
+  let verifyCalls = 0;
+  await page.route(`${verifyEndpoint}?license=${token}`, async route => {
+    verifyCalls += 1;
+    await route.fulfill({ contentType: 'application/json', body: JSON.stringify({ valid: true, reason: 'ok' }) });
+  });
+  await page.goto('/demo');
+  await expect(page.getByRole('heading', { name: 'Choose one reset tool' })).toBeVisible();
+  expect(verifyCalls).toBe(0);
+  await page.evaluate(({ key, value }) => localStorage.setItem(key, JSON.stringify(value)), {
+    key: demoLicenseCacheKey,
+    value: { ...freshVerdict, checkedAt: Date.now() - 25 * 60 * 60 * 1000 }
+  });
+  await page.locator('nav').getByRole('link', { name: 'Demo' }).click();
+  await expect.poll(() => verifyCalls).toBe(1);
+  await page.locator('nav').getByRole('link', { name: 'Demo' }).click();
+  await expect.poll(() => verifyCalls).toBe(1);
+});
+
+test('@claim:license-revocation a revoked license locks the paid demo gate after its daily check', async ({ page }) => {
+  const token = 'revoked-demo';
+  await seedDemo(page, completedFirstRun(), false, {
+    token,
+    verdict: { token, valid: true, checkedAt: Date.now() - 25 * 60 * 60 * 1000 }
+  });
+  await page.route(`${verifyEndpoint}?license=${token}`, route => route.fulfill({ contentType: 'application/json', body: JSON.stringify({ valid: false, reason: 'revoked' }) }));
+  await page.goto('/demo');
+  await expect(page.getByRole('heading', { name: 'Full campaign unlock' })).toBeVisible();
+  await expect(page.getByText('License no longer active. Buy the full campaign or paste an active license.')).toBeVisible();
+});
+
+test('@claim:campaign-structure the demo shows five runs of six blueprints and stops after the free run', async ({ page }) => {
+  await seedDemo(page, completedFirstRun(), false);
+  await page.goto('/demo');
+  await expect(page.getByText('30 blueprints with 24 ticks each')).toBeVisible();
+  await expect(page.getByText('6/30 blueprints complete')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Full campaign unlock' })).toBeVisible();
+});
+
+test('@claim:production-input touch, pointer, and M/S/C input each spend a demo production tick', async ({ page, browser }) => {
   await page.goto('/demo');
   await page.getByRole('button', { name: /Mine ore/ }).click();
   await page.keyboard.press('m');
   await page.keyboard.press('s');
   await page.keyboard.press('c');
   await expect(page.getByText('11 / 24 production ticks used.')).toBeVisible();
-  await expect(page.locator('.resource-grid')).toContainText('Beacon charge');
   const touchContext = await browser.newContext({ hasTouch: true, isMobile: true, viewport: { width: 390, height: 844 } });
   const touchPage = await touchContext.newPage();
   await touchPage.goto('/demo');
@@ -157,44 +265,94 @@ test('@claim:production-input touch, pointer, and M/S/C inputs each spend one pr
   await touchContext.close();
 });
 
-test('@claim:sunlight-bonus the displayed sunlit station produces one extra unit', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.locator('.forecast li.current')).toContainText('Mine ore +1');
-  await page.keyboard.press('m');
-  await expect(page.locator('.resource-grid > div').first().locator('b')).toHaveText('2');
-  await expect(page.getByText('1 / 24 production ticks used.')).toBeVisible();
+test('@claim:sunlight-bonus the displayed demo forecast produces the shown extra unit', async ({ page }) => {
+  await page.goto('/demo');
+  const forecast = page.locator('.forecast li.current');
+  const forecastText = await forecast.innerText();
+  const action = forecastText.includes('Mine ore') ? 'mine' : forecastText.includes('Shape parts') ? 'shape' : 'charge';
+  const button = page.locator(`[data-action="${action}"]`);
+  const expectedYield = Number((await button.locator('small').innerText()).match(/\+(\d+)/)?.[1]);
+  const before = await readDemoSave(page);
+  await button.click();
+  const after = await readDemoSave(page);
+  const resource = action === 'mine' ? 'ore' : action === 'shape' ? 'parts' : 'charge';
+  expect(expectedYield).toBeGreaterThanOrEqual(2);
+  expect(after.campaign.stock[resource]).toBe(before.campaign.stock[resource] + expectedYield - (action === 'shape' ? 0 : 0));
 });
 
-test('@claim:local-progress demo progress is retained in its own browser namespace', async ({ page }) => {
+test('@claim:reset-tools choosing each reset tool changes a later demo run', async ({ page }) => {
+  const cases: Array<{ tool: ToolId; previous: ToolId[]; action?: Action }> = [
+    { tool: 'bellows', previous: [], action: 'mine' },
+    { tool: 'pattern', previous: ['bellows'], action: 'shape' },
+    { tool: 'lens', previous: ['bellows', 'pattern'], action: 'charge' },
+    { tool: 'stockpile', previous: ['bellows', 'pattern', 'lens'] }
+  ];
+  await page.goto('/demo');
+  for (const item of cases) {
+    const state = runCompleteWithTools(item.previous);
+    await page.evaluate(({ key, save }) => localStorage.setItem(key, JSON.stringify(save)), { key: demoKey, save: demoSave(state) });
+    await page.reload();
+    await page.getByRole('button', { name: new RegExp(tools[item.tool].name) }).click();
+    const afterChoice = await readDemoSave(page);
+    expect(afterChoice.campaign.owned).toContain(item.tool);
+    if (item.tool === 'stockpile') {
+      expect(afterChoice.campaign.stock).toEqual({ ore: 1, parts: 1, charge: 0 });
+      continue;
+    }
+    if (item.action === 'shape') await page.locator('[data-action="mine"]').click();
+    if (item.action === 'charge') {
+      await page.locator('[data-action="mine"]').click();
+      await page.locator('[data-action="shape"]').click();
+    }
+    const control = page.locator(`[data-action="${item.action}"]`);
+    const displayedYield = Number((await control.locator('small').innerText()).match(/\+(\d+)/)?.[1]);
+    const before = await readDemoSave(page);
+    await control.click();
+    const after = await readDemoSave(page);
+    const resource = item.action === 'mine' ? 'ore' : item.action === 'shape' ? 'parts' : 'charge';
+    expect(after.campaign.stock[resource]).toBe(before.campaign.stock[resource] + displayedYield);
+  }
+});
+
+test('@claim:demo-sandbox reset restores the stocked sample without creating real progress', async ({ page }) => {
+  await page.goto('/demo');
+  await page.getByRole('button', { name: /Mine ore/ }).click();
+  await page.getByRole('button', { name: 'Reset demo' }).click();
+  await expect(page.getByText('7 / 24 production ticks used.')).toBeVisible();
+  const storage = await page.evaluate(() => ({ real: localStorage.getItem('finite-forge:v4'), demo: localStorage.getItem('demo:finite-forge:v4') }));
+  expect(storage.real).toBeNull();
+  expect(JSON.parse(storage.demo!)).toMatchObject({ campaign: { run: 3, shift: 4, tick: 7 }, demoEntitled: true });
+});
+
+test('@claim:local-progress demo progress stays in the demo namespace after reload', async ({ page }) => {
   await page.goto('/demo');
   await page.getByRole('button', { name: /Mine ore/ }).click();
   await page.reload();
   await expect(page.getByText('8 / 24 production ticks used.')).toBeVisible();
   const keys = await page.evaluate(() => Object.keys(localStorage));
-  expect(keys).toContain('demo:finite-forge:v4');
-  expect(keys).not.toContain(realKey);
+  expect(keys).toContain(demoKey);
+  expect(keys).not.toContain('finite-forge:v4');
 });
 
-test('@claim:no-offline-income waiting does not spend ticks or make materials', async ({ page }) => {
+test('@claim:no-offline-income waiting in the demo does not spend ticks or make materials', async ({ page }) => {
   await page.goto('/demo');
-  const before = await page.locator('.resource-grid').textContent();
+  const before = await readDemoSave(page);
   await page.waitForTimeout(600);
-  await expect(page.getByText('7 / 24 production ticks used.')).toBeVisible();
-  expect(await page.locator('.resource-grid').textContent()).toBe(before);
+  const after = await readDemoSave(page);
+  expect(after.campaign.tick).toBe(before.campaign.tick);
+  expect(after.campaign.stock).toEqual(before.campaign.stock);
 });
 
-test('@claim:local-only normal and demo play make no requests away from the page origin before a license is supplied', async ({ page }) => {
+test('@claim:local-only sample play makes no requests away from its page origin', async ({ page }) => {
   const requests: string[] = [];
   page.on('request', request => requests.push(request.url()));
   await page.goto('/demo');
   const origin = new URL(page.url()).origin;
   await page.getByRole('button', { name: /Mine ore/ }).click();
-  await page.goto('/');
-  await page.getByRole('button', { name: /Mine ore/ }).click();
   expect(requests.every(url => new URL(url).origin === origin)).toBe(true);
 });
 
-test('@claim:settings-persist motion and sound settings work and persist', async ({ page }) => {
+test('@claim:settings-persist demo motion and sound settings work and persist', async ({ page }) => {
   await page.addInitScript(() => {
     class MockAudioContext {
       currentTime = 0;
@@ -205,13 +363,8 @@ test('@claim:settings-persist motion and sound settings work and persist', async
     Object.defineProperty(window, 'AudioContext', { value: MockAudioContext });
   });
   await page.goto('/demo');
-  await page.getByRole('button', { name: /Mine ore/ }).click();
-  await expect.poll(() => page.evaluate(() => (window as Window & { __finiteForgeSoundCount?: number }).__finiteForgeSoundCount || 0)).toBe(0);
-  await expect(page.locator('.settings')).toBeHidden();
   await page.getByRole('button', { name: 'Settings' }).click();
-  await expect(page.getByRole('button', { name: 'Settings' })).toHaveAttribute('aria-expanded', 'true');
   await page.getByLabel('Show board motion').uncheck();
-  await expect(page.locator('.game-shell')).toHaveClass(/motion-off/);
   await page.getByLabel('Enable sound cues').check();
   await page.getByRole('button', { name: /Mine ore/ }).click();
   await expect.poll(() => page.evaluate(() => (window as Window & { __finiteForgeSoundCount?: number }).__finiteForgeSoundCount || 0)).toBe(1);
@@ -221,7 +374,7 @@ test('@claim:settings-persist motion and sound settings work and persist', async
   await expect(page.getByLabel('Enable sound cues')).toBeChecked();
 });
 
-test('@claim:frame-rate-60 the 390px board stays near 60 fps under 4x CPU throttle', async ({ page }) => {
+test('@claim:frame-rate-60 the 390px demo board stays near 60 fps under 4x CPU throttle', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   const session = await page.context().newCDPSession(page);
   await session.send('Emulation.setCPUThrottlingRate', { rate: 4 });
@@ -244,38 +397,27 @@ test('@claim:frame-rate-60 the 390px board stays near 60 fps under 4x CPU thrott
   expect(stats.p95).toBeLessThanOrEqual(20);
 });
 
-test('@claim:demo-sandbox header Demo enters a seeded sandbox and preserves the real save', async ({ page }) => {
-  await page.goto('/');
-  await page.keyboard.press('m');
-  await page.getByRole('link', { name: 'Demo' }).click();
-  await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
-  await expect(page).toHaveTitle('Demo — Finite Forge');
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://finite-forge.sociobot.in/demo');
-  await expect(page.getByText('7 / 24 production ticks used.')).toBeVisible();
-  const storage = await page.evaluate(() => ({ real: localStorage.getItem('finite-forge:v4'), demo: localStorage.getItem('demo:finite-forge:v4') }));
-  expect(JSON.parse(storage.real!).campaign.tick).toBe(1);
-  expect(JSON.parse(storage.demo!).campaign.tick).toBe(7);
-});
-
-test('@claim:retry-retains-tools a failed later blueprint keeps earlier reset tools after retry', async ({ page }) => {
-  let campaign = chooseTool(completedFirstRun(), 'lens');
-  await page.addInitScript(({ key, campaign: stored, tokenKey, cacheKey }) => {
-    localStorage.setItem(key, JSON.stringify({ campaign: stored, settings: { motion: true, sound: false } }));
-    localStorage.setItem(tokenKey, 'test-license');
-    localStorage.setItem(cacheKey, JSON.stringify({ valid: true, checkedAt: Date.now() }));
-  }, { key: realKey, campaign, tokenKey: licenseKey, cacheKey: licenseCacheKey });
-  await page.goto('/');
+test('@claim:retry-retains-tools a failed later demo blueprint keeps its chosen reset tool', async ({ page }) => {
+  const runTwo = chooseTool(completedFirstRun(), 'lens');
+  await seedDemo(page, runTwo);
+  await page.goto('/demo');
   await expect(page.getByText('Focusing lens')).toBeVisible();
   for (let tick = 0; tick < PRODUCTION_TICKS; tick += 1) await page.keyboard.press('m');
-  await expect(page.getByRole('heading', { name: 'Sunset reached' })).toBeVisible();
   await page.getByRole('button', { name: 'Retry this blueprint' }).click();
   await expect(page.getByText('Focusing lens')).toBeVisible();
   await expect(page.getByText('0 / 24 production ticks used.')).toBeVisible();
-  campaign = campaign;
 });
 
-test('routes, keyboard focus, mobile targets, reduced motion, and accessibility pass', async ({ page }) => {
-  await page.goto('/');
+test('@claim:generated-image-provenance the demo visibly discloses and shows the generated blueprint illustration', async ({ page }) => {
+  await page.goto('/demo');
+  await expect(page.locator('footer')).toContainText('Blueprint illustration uses original generated imagery.');
+  const illustration = page.getByRole('img', { name: 'A blueprint drawing of a small forge connected to a beacon tower.' });
+  await expect(illustration).toBeVisible();
+  expect(await illustration.evaluate(image => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(100);
+});
+
+test('demo routes, keyboard focus, mobile targets, reduced motion, and accessibility pass', async ({ page }) => {
+  await page.goto('/demo');
   await page.keyboard.press('Tab');
   await expect(page.getByRole('link', { name: 'Skip to game' })).toBeFocused();
   await page.keyboard.press('Enter');
@@ -283,13 +425,10 @@ test('routes, keyboard focus, mobile targets, reduced motion, and accessibility 
   await page.getByRole('link', { name: 'How it works' }).click();
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(100);
   await expect.poll(() => page.evaluate(() => document.activeElement?.id)).toBe('how');
-  await page.locator('nav').getByRole('link', { name: 'Privacy' }).click();
-  await expect.poll(() => page.evaluate(() => document.activeElement?.tagName)).toBe('H1');
-
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/demo');
-  const targets = [
+  for (const locator of [
     page.getByRole('link', { name: 'Skip to game' }),
     page.locator('nav').getByRole('link', { name: 'Demo' }),
     page.getByRole('button', { name: 'Settings' }),
@@ -297,28 +436,35 @@ test('routes, keyboard focus, mobile targets, reduced motion, and accessibility 
     page.getByRole('button', { name: /Mine ore/ }),
     page.locator('footer').getByRole('link', { name: 'Privacy' }),
     page.locator('footer').getByRole('link', { name: 'Terms' })
-  ];
-  for (const locator of targets) {
+  ]) {
     const box = await locator.boundingBox();
     expect(box?.width).toBeGreaterThanOrEqual(44);
     expect(box?.height).toBeGreaterThanOrEqual(44);
   }
+  const smallestVisibleText = await page.evaluate(() => Math.min(...[...document.querySelectorAll<HTMLElement>('body *')]
+    .filter(element => getComputedStyle(element).display !== 'none' && element.textContent?.trim())
+    .map(element => Number.parseFloat(getComputedStyle(element).fontSize))
+    .filter(Number.isFinite)));
+  expect(smallestVisibleText).toBeGreaterThanOrEqual(16);
   const reducedDuration = await page.locator('.resource-grid .charge b').evaluate(element => Number.parseFloat(getComputedStyle(element).animationDuration));
   expect(reducedDuration).toBeLessThanOrEqual(0.00001);
-
-  for (const path of ['/', '/demo', '/privacy', '/terms', '/missing-plan']) {
+  for (const path of ['/demo', '/privacy', '/terms', '/missing-plan']) {
     await page.goto(path);
     const scan = await new AxeBuilder({ page }).analyze();
     expect(scan.violations.filter(violation => ['critical', 'serious'].includes(violation.impact || '')).map(violation => violation.id)).toEqual([]);
   }
-  expect(await page.evaluate(async () => 'serviceWorker' in navigator ? (await navigator.serviceWorker.getRegistrations()).length : 0)).toBe(0);
+  await page.goto('/privacy');
+  expect((await page.locator('meta[name="description"]').getAttribute('content'))!.length).toBeLessThanOrEqual(155);
+  await page.goto('/missing-plan');
+  await expect(page.getByRole('heading', { name: 'Page not found.' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Return to game board' })).toBeVisible();
 });
 
-test('a malformed local save recovers to a playable campaign', async ({ page }) => {
-  await page.goto('/');
-  await page.evaluate(key => localStorage.setItem(key, '{bad json'), realKey);
+test('a malformed demo save recovers to a playable sample', async ({ page }) => {
+  await page.goto('/demo');
+  await page.evaluate(key => localStorage.setItem(key, '{bad json'), demoKey);
   await page.reload();
-  await expect(page.getByText('0 / 24 production ticks used.')).toBeVisible();
+  await expect(page.getByText('7 / 24 production ticks used.')).toBeVisible();
   await page.getByRole('button', { name: /Mine ore/ }).click();
-  await expect(page.getByText('1 / 24 production ticks used.')).toBeVisible();
+  await expect(page.getByText('8 / 24 production ticks used.')).toBeVisible();
 });

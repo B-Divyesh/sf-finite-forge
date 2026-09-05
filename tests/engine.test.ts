@@ -61,7 +61,7 @@ describe('Finite Forge deterministic sunset campaign', () => {
     expect(Array.from({ length: 24 }, (_, tick) => sunBonusAt(1, tick, 1))).toEqual(Array.from({ length: 24 }, (_, tick) => sunBonusAt(1, tick, 1)));
   });
 
-  it('@claim:reset-tools makes every reset tool change production or starting stock', () => {
+  it('regression: every reset tool changes production or starting stock', () => {
     const base = newCampaign();
     expect(actionYield({ ...base, owned: ['bellows'] }, 'mine')).toBe(actionYield(base, 'mine') + 1);
     expect(actionYield({ ...base, owned: ['pattern'] }, 'shape')).toBe(actionYield(base, 'shape') + 1);
@@ -79,7 +79,7 @@ describe('Finite Forge deterministic sunset campaign', () => {
     expect(retried.stock).toEqual({ ore: 0, parts: 0, charge: 0 });
   });
 
-  it('@claim:campaign-duration ships five runs, six blueprints per run, and a 33.3-minute planning budget', () => {
+  it('regression: declares five runs, six blueprints per run, and a 33.3-minute planning budget', () => {
     expect(RUN_COUNT).toBe(5);
     expect(SHIFTS_PER_RUN).toBe(6);
     expect(CAMPAIGN_SHIFT_COUNT).toBe(30);
@@ -108,7 +108,7 @@ describe('Finite Forge deterministic sunset campaign', () => {
     expect(progressPercent(campaign)).toBe(100);
   });
 
-  it('keeps every reset-tool order winnable before each sunset', () => {
+  it('@claim:campaign-duration exhaustively proves every reset-tool order needs a 30–45 minute planning budget', () => {
     clearWinningActionCache();
     const orders = permutations<ToolId>(['bellows', 'pattern', 'lens', 'stockpile']);
     expect(orders).toHaveLength(24);
@@ -133,5 +133,8 @@ describe('Finite Forge deterministic sunset campaign', () => {
     expect(solvedOrders).toBe(24);
     expect(solvedShifts).toBe(24 * CAMPAIGN_SHIFT_COUNT);
     expect(shortestCampaign).toBeGreaterThanOrEqual(MINIMUM_CAMPAIGN_TICKS);
-  });
+    const minutesFromSolvedCampaign = shortestCampaign * PLANNING_SECONDS_PER_TICK / 60;
+    expect(minutesFromSolvedCampaign).toBeGreaterThanOrEqual(30);
+    expect(minutesFromSolvedCampaign).toBeLessThanOrEqual(45);
+  }, 30_000);
 });

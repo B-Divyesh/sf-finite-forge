@@ -21,6 +21,7 @@ html {
 }
 body {
   margin: 0;
+  font-size: 16px;
   color: var(--ink);
   background:
     linear-gradient(90deg, transparent 49.8%, #0f334a 50%, transparent 50.2%),
@@ -95,7 +96,7 @@ header {
   display: flex;
   align-items: center;
   font:
-    700 14px/10px ui-monospace,
+    700 16px/12px ui-monospace,
     monospace;
   letter-spacing: 2px;
   text-decoration: none;
@@ -106,7 +107,7 @@ header {
 nav {
   display: flex;
   gap: 18px;
-  font-size: 14px;
+  font-size: 16px;
 }
 nav a {
   min-width: 44px;
@@ -127,7 +128,7 @@ nav a {
   gap: 12px;
   align-items: center;
   padding: 8px 16px;
-  font-size: 14px;
+  font-size: 16px;
 }
 .demo button {
   min-height: 44px;
@@ -146,7 +147,7 @@ nav a {
 .board-title h2,
 .section-label {
   font:
-    700 12px ui-monospace,
+    700 16px ui-monospace,
     monospace;
   letter-spacing: 1.3px;
   color: var(--amber);
@@ -186,7 +187,7 @@ nav a {
   margin: 27px 0 0;
   padding: 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 16px;
   display: grid;
   gap: 8px;
 }
@@ -206,7 +207,7 @@ nav a {
   );
 }
 .hero-art figcaption {
-  font-size: 13px;
+  font-size: 16px;
   color: var(--muted);
   margin-top: 12px;
 }
@@ -255,7 +256,7 @@ nav a {
 }
 .campaign-progress b {
   font:
-    12px ui-monospace,
+    16px ui-monospace,
     monospace;
   color: var(--muted);
 }
@@ -288,7 +289,7 @@ nav a {
 }
 .deadline p:last-child {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 16px;
   margin: 10px 0 0;
 }
 .tick-track {
@@ -328,7 +329,7 @@ nav a {
 }
 .resource-grid span {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 16px;
 }
 .resource-grid b {
   color: var(--amber);
@@ -371,7 +372,7 @@ nav a {
 }
 .stock i {
   font:
-    normal 11px Arial,
+    normal 16px Arial,
     sans-serif;
   color: var(--muted);
 }
@@ -408,12 +409,12 @@ nav a {
 }
 .forecast li span {
   font:
-    11px ui-monospace,
+    16px ui-monospace,
     monospace;
   color: var(--amber);
 }
 .forecast li b {
-  font-size: 12px;
+  font-size: 16px;
 }
 .forecast li.current {
   border-style: solid;
@@ -438,11 +439,11 @@ nav a {
   color: var(--muted);
   display: grid;
   gap: 4px;
-  font-size: 13px;
+  font-size: 16px;
 }
 .program li span {
   font:
-    11px ui-monospace,
+    16px ui-monospace,
     monospace;
   color: var(--amber);
 }
@@ -471,13 +472,14 @@ nav a {
 .controls button small {
   color: var(--muted);
   font-weight: 400;
+  font-size: 16px;
 }
 .controls button:hover {
   border-color: var(--amber);
 }
 kbd {
   font:
-    11px ui-monospace,
+    16px ui-monospace,
     monospace;
   color: var(--amber);
   border: 1px solid var(--rule);
@@ -495,7 +497,7 @@ kbd {
 }
 .projection p {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.4;
 }
 .commit {
@@ -506,7 +508,7 @@ kbd {
 }
 .production-note {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.45;
   margin: 12px 0 0;
 }
@@ -538,7 +540,7 @@ kbd {
   gap: 5px;
 }
 .end-panel dt {
-  font-size: 12px;
+  font-size: 16px;
   color: var(--muted);
 }
 .end-panel dd {
@@ -573,7 +575,7 @@ kbd {
   padding: 10px;
 }
 .license-status {
-  font-size: 13px;
+  font-size: 16px;
 }
 .tool-choices {
   display: grid;
@@ -591,7 +593,7 @@ kbd {
 }
 .tool-choices span,
 .tool-list span {
-  font-size: 13px;
+  font-size: 16px;
   color: var(--muted);
   font-weight: 400;
 }
@@ -602,7 +604,7 @@ kbd {
 }
 .no-tools {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 16px;
 }
 .tool-list {
   list-style: none;
@@ -626,7 +628,7 @@ kbd {
   gap: 18px;
   flex-wrap: wrap;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 16px;
 }
 .settings label {
   min-height: 44px;
@@ -674,7 +676,7 @@ kbd {
 .how li:before {
   content: "0" counter(steps);
   font:
-    12px ui-monospace,
+    16px ui-monospace,
     monospace;
   color: var(--amber);
 }
@@ -692,7 +694,7 @@ footer {
   padding-top: 24px;
   padding-bottom: 36px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 16px;
   display: flex;
   justify-content: space-between;
   gap: 16px;
@@ -748,7 +750,7 @@ footer a {
   }
   nav {
     gap: 10px;
-    font-size: 13px;
+    font-size: 16px;
   }
   .intro {
     grid-template-columns: 1fr;
@@ -786,7 +788,7 @@ footer a {
   }
   .stock b {
     min-height: 58px;
-    font-size: 21px;
+    font-size: 24px;
     padding: 8px;
   }
   .forecast ol,

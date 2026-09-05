@@ -13,8 +13,10 @@ license adds runs two through five. Sociobot and Dodo are the merchant of
 record. Refunds revoke the license.
 
 After checkout, Finite Forge stores the returned license in browser storage
-and checks it with Sociobot. The check happens on return, then at most once a
-day. A buyer can paste a license token to restore a purchase on another device.
+and checks it with Sociobot before opening paid runs. The check happens on
+return, then at most once a day. A buyer can paste a license token to restore
+a purchase on another device. A previously checked license keeps paid progress
+available while offline.
 
 ## Play and controls
 
@@ -37,10 +39,10 @@ discards demo data and returns to the real campaign.
 
 ## Privacy
 
-Progress and settings stay in browser localStorage. There are no analytics or
-third-party runtime requests during normal or demo play. A supplied buyer
-license is checked only with Sociobot. The forge has no idle timer or offline
-production. See `/privacy` and `/terms`.
+Progress and settings stay in browser localStorage. Game play makes no request
+away from this site before a license is supplied. A supplied buyer license is
+checked only with Sociobot. The forge has no idle timer or offline production.
+See `/privacy` and `/terms`.
 
 ## Run and verify
 
