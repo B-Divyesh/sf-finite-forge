@@ -5,8 +5,11 @@
 **BLOCKED — one external billing finding and zero untested product claims.**
 
 Implementation `c4cce27b42edb13501651aaae3f57f6fcdd0f3ea` is deployed at
-<https://finite-forge.sociobot.in>. Documentation/evidence commit
-`92b45bb84df2936ad3535038eef4efbbcb997ad7` does not change the product image.
+<https://finite-forge.sociobot.in>. Independent verification documentation is
+`92b45bb84df2936ad3535038eef4efbbcb997ad7`; this repair's evidence is
+`95bb42dc86b3845f325a45e3f9e1c08a6f0ebf64`. Neither changes the product
+implementation. The verified `dist/` was redeployed to the existing product
+static target and passed a fresh cold HTTPS desktop and phone check.
 
 The game repair passed fresh live QA. The remaining release blocker is external
 billing registration: the advertised `finite-forge` checkout still returns
