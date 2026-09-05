@@ -1,0 +1,47 @@
+{
+  "checked_at": "2026-09-05T21:51:00Z",
+  "url": "https://finite-forge.sociobot.in",
+  "desktop": {
+    "viewport": "1440x900",
+    "status": 200,
+    "title": "Finite Forge — Build a beacon before sunset",
+    "job": "Build a beacon before sunset.",
+    "audience": "For reset fans who want a 30–45 minute campaign with a deadline.",
+    "first_action": "Try it with sample data",
+    "action_explanation": "Opens run three with stock and two tools.",
+    "board_top_px": 752,
+    "board_in_first_viewport": true,
+    "console_errors": []
+  },
+  "phone": {
+    "viewport": "390x844",
+    "status": 200,
+    "title": "Finite Forge — Build a beacon before sunset",
+    "job": "Build a beacon before sunset.",
+    "audience": "For reset fans who want a 30–45 minute campaign with a deadline.",
+    "first_action": "Try it with sample data",
+    "action_explanation": "Opens run three with stock and two tools.",
+    "board_top_px": 533.21875,
+    "board_in_first_viewport": true,
+    "console_errors": []
+  },
+  "demo": {
+    "persistent_label_after_play": true,
+    "reset_ticks_used": 7,
+    "reset_stock": "4 ore, 3 parts, 5 of 18 beacon charge",
+    "reset_tools": ["Bellows", "Pattern plate"],
+    "real_save_unchanged": true,
+    "demo_save_removed_on_exit": true
+  },
+  "checkout": {
+    "advertised_price": "$5 once",
+    "redirect_status": 303,
+    "approved_host": "checkout.dodopayments.com",
+    "hosted_status": 200,
+    "hosted_title": "Sociobot | Checkout",
+    "hosted_offer": "Finite Forge Full Campaign",
+    "hosted_price": "$5.00",
+    "payment_attempted": false,
+    "entitlement_proven": false
+  }
+}

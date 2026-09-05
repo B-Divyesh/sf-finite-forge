@@ -1,0 +1,29 @@
+{
+  "checked_at": "2026-09-05T21:53:00Z",
+  "declared_claim_commands": "23/23 passed individually",
+  "unit_tests": "7/7 passed",
+  "local_browser_tests": "25/25 passed",
+  "live_browser_tests": "25/25 passed",
+  "links_routes_metadata": "passed",
+  "typecheck": "passed",
+  "lint": "passed",
+  "build": "passed",
+  "production_audit": "0 vulnerabilities",
+  "full_audit": "0 vulnerabilities",
+  "lighthouse": {
+    "performance": 100,
+    "accessibility": 100,
+    "best_practices": 100,
+    "seo": 100,
+    "fcp_ms": 809.203,
+    "lcp_ms": 1060.203,
+    "tbt_ms": 0,
+    "cls": 0,
+    "transfer_bytes": 40143
+  },
+  "runtime_bytes": {
+    "javascript_raw": 19991,
+    "css_raw": 11745,
+    "blueprint_webp": 27948
+  }
+}
