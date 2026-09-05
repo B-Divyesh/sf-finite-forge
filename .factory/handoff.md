@@ -6,9 +6,11 @@
 
 The runtime implementation remains
 `c4cce27b42edb13501651aaae3f57f6fcdd0f3ea`. The outcome-based checkout test
-repair is `3b55ebfc21c7392fcd172e96356ef19fe7b28189`. The shipped game code did not
-change. The production artifact was rebuilt and redeployed from the repair
-tree, and every checked live file matches that build by SHA-256.
+repair is `3b55ebf1fec72ec7ebe91f5dadf8006710087662`. The evidence documentation
+baseline is `864e7a8c9a9844514097114d8d00d2c1945ac338`; the later handoff commit only
+records these identifiers. The shipped game code did not change. The
+production artifact was rebuilt and redeployed from the repair tree, and every
+checked live file matches that build by SHA-256.
 
 ## What changed
 
