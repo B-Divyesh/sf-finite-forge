@@ -1,0 +1,20 @@
+[
+  {
+    "path": "/",
+    "remoteSha256": "f81747cecf58cb976596819539c7fca588edf8259f7ccdcbe8c2768f6456373a",
+    "localSha256": "f81747cecf58cb976596819539c7fca588edf8259f7ccdcbe8c2768f6456373a",
+    "match": true
+  },
+  {
+    "path": "/assets/index-CilNjev_.js",
+    "remoteSha256": "6b407485dda7affbb171fe4500a3a5e9461e6d09f11495354970b7c89ace98dd",
+    "localSha256": "6b407485dda7affbb171fe4500a3a5e9461e6d09f11495354970b7c89ace98dd",
+    "match": true
+  },
+  {
+    "path": "/assets/index-CVaCy4yW.css",
+    "remoteSha256": "db90cc9eadcf548b03f78bdfac3ff088db021dea9593d25bce54a02596e1f970",
+    "localSha256": "db90cc9eadcf548b03f78bdfac3ff088db021dea9593d25bce54a02596e1f970",
+    "match": true
+  }
+]

@@ -1,40 +1,32 @@
-# Finite Forge verification 9 handoff
+# Finite Forge review 1 handoff
 
 ## Result
 
 **PASS — 0 findings and 0 untested public claims.**
 
-Independent QA reviewed runtime implementation
-`c4cce27b42edb13501651aaae3f57f6fcdd0f3ea`, checkout test repair
+This strict review covered implementation candidate
+`c4cce27b42edb13501651aaae3f57f6fcdd0f3ea`, checkout-test repair
 `3b55ebf1fec72ec7ebe91f5dadf8006710087662`, and documentation baseline
-`b7344c957f56a3e15842019c13cf6a1a132f02af`. The live runtime byte-matches the
-local production build.
+`13f527a38ac920e131d716e24d58219a2b26c47b`. The live HTML, JavaScript, and
+CSS hashes match the candidate build.
 
-## What was verified
+## What was done
 
-- Fresh live desktop and phone first screens state the job, audience, and
-  sample action before scrolling, with the active game board in view.
-- The one-click run-three sample is populated, labeled, isolated from real
-  progress, resettable, and discarded by **Start for real**.
-- A deterministic live run reaches **Final beacon lit** after five runs, 30
-  blueprints, and 419 production ticks. A separate 24-tick run reaches
-  **Sunset reached** and recovers at tick zero.
-- All 23 declared claim commands pass individually against live. The complete
-  live browser suite passes 25/25.
-- The checkout claim proves the approved Dodo host, 303 redirect, hosted 200,
-  Finite Forge product, $5.00 price, and one-time offer. No payment or real
-  entitlement was attempted.
-- Invalid license verification, CORS, no-store, and 429/Retry-After behavior
-  pass. Fixture checks cover valid, restore, cache, offline, and revocation
-  paths.
-- Axe reports zero violations on home, demo, privacy, terms, and the designed
-  404. Keyboard focus, 44 px targets, 16 px text, reduced motion, 200% reflow,
-  route titles, canonicals, links, headers, and privacy request logging pass.
-- Lighthouse mobile scores 100 performance, 100 accessibility, 100 best
-  practices, and 100 SEO. LCP is 1.05 s, TBT 0 ms, CLS 0, and transfer 40,098
-  bytes.
+- Fresh desktop and phone live sessions confirmed the job, audience, sample
+  action, and visible game board before scrolling.
+- The populated one-click demo, persistent sample label, isolated storage,
+  reset, exit to real play, local persistence, loss/retry, and actual five-run
+  final ending were exercised. End-screen images were recorded.
+- All 23 declared claim commands were run separately against live; the full
+  live browser suite passed 25/25 and the clean local suite passed 7 Vitest
+  plus 25 Playwright tests.
+- URL verification, fresh Axe scans, keyboard/focus/reduced-motion/mobile
+  checks, routes, legal pages, designed 404, privacy requests, hash comparison,
+  checkout availability, invalid-license behavior, and rate limiting passed.
+- Lighthouse mobile scored 99 performance, 100 accessibility, 100 best
+  practices, and 100 SEO.
 
-## Commands
+## How to verify
 
 ```sh
 npm ci
@@ -47,17 +39,11 @@ npm audit
 BASE_URL=https://finite-forge.sociobot.in npx playwright test
 ```
 
-Every `test` value in `.factory/claims.json` was also run separately with the
-live base URL. The supplied URL verifier and fresh Playwright Axe integration
-passed.
-
-## Evidence and report
-
-- Full report: `.factory/verification-9.md`
-- Browser, end-screen, Axe, route, URL-verifier, and Lighthouse evidence:
-  `.factory/verification-9-evidence/`
+Run each command in `.factory/claims.json` separately with the live base URL
+for Playwright entries. See `.factory/review-1.md` and
+`.factory/review-1-evidence/` for the full evidence.
 
 ## Known gaps
 
-None found. Payment settlement and issuance of a real entitlement were outside
-this read-only verification and are not claimed as proven.
+None found. No payment, buyer data, or real entitlement was attempted; payment
+settlement is not claimed as verified.

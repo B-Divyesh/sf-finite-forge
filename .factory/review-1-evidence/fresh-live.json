@@ -1,0 +1,78 @@
+[
+  {
+    "name": "desktop",
+    "status": 200,
+    "first": {
+      "title": "Finite Forge — Build a beacon before sunset",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "scrollY": 0,
+      "innerHeight": 900,
+      "bodyText": "Skip to game\nFINITE\n\nFORGE\nDemo\nHow it works\nPrivacy\n\nA finite strategy game\n\nBuild a beacon before sunset.\n\nFor reset fans who want a 30–45 minute campaign with a deadline.\n\nTry it with sample data\nOpens run three with stock and two tools.\n30 blueprints with 24 ticks each\nRun one free; $5 once for the full campaign\nProgress stays in this browser\nUse the daylight forecast, choose reset tools, and beat sunset.\nRUN 01 · BLUEPRINT 1/6 · 24 TICKS TO SUNSET\n\nCharge target: 13\n\nSettings\n0/30 blueprints complete\n\nBlueprint 1 sunset deadline\n\n24 ticks left\n\n0 / 24 production ticks used. Every action spends one tick.\n\nOre\n0\nParts\n0\nBeacon charge\n0 / 13\n\nDaylight forecast\n\nUse the sunlit station for +1\nTick 1\nMine ore +1\nTick 2\nCharge beacon +1\nTick 3\nShape parts +1\nTick 4\nMine ore +1\nTick 5\nCharge beacon +1\nTick 6\nShape parts +1\nM\nMine ore\n+2 ore\nS\nShape parts\n1 ore → +1 parts\nC\nCharge beacon\n1 part → +1 charge\n\nA missing input still spends the tick. Read the next six sunlight bonuses before acting.\n\nReset tools\n\nNo reset tools yet.\n\nHow the forge works\nRead the daylight.\nThe sunlit station makes one extra unit on that tick.\nFinish six blueprints.\nEach beacon run has six 24-tick blueprints before you choose a tool.\nChoose each reset.\nKeep one new tool, then build the fifth and final beacon.\nWhat the forge does not do\n\nIt has no idle timers, offline income, or endless prestige layers. Progress changes only when you act.\n\nPrice and campaign length\n\nRun one is free. A $5 one-time purchas",
+      "boardTop": null
+    },
+    "demo": {
+      "url": "https://finite-forge.sociobot.in/demo",
+      "banner": true,
+      "body": "Skip to game\nFINITE\n\nFORGE\nDemo\nHow it works\nPrivacy\nDemo — sample data, nothing is saved\nRun three starts stocked with two tools.\nReset demo\nStart for real\n\nA finite strategy game\n\nBuild a beacon before sunset.\n\nFor reset fans who want a 30–45 minute campaign with a deadline.\n\nTry it with sample data\nOpens run three with stock and two tools.\n30 blueprints with 24 ticks each\nRun one free; $5 once for the full campaign\nProgress stays in this browser\nUse the daylight forecast, choose reset tools, and beat sunset.\nRUN 03 · BLUEPRINT 4/6 · 17 TICKS TO SUNSET\n\nCharge target: 18\n\nSettings\n15/30 blueprints complete\n\nBlueprint 4 sunset deadline\n\n17 ticks left\n\n7 / 24 production ticks used. Every action spends one tick.\n\nOre\n4\nParts\n3\nBeacon charge\n5 / 18\n\nDaylight forecast\n\nUse the sunlit station for +1\nTick 8\nMine ore +1\nTick 9\nCharge beacon +1\nTick 10\nShape parts +1\nTick 11\nMine ore +1\nTick 12\nCharge beacon +1\nTick 13\nShape parts +1\nM\nMine ore\n+3 ore\nS\nShape parts\n1 ore → +2 parts\nC\nCharge beacon\n1 part → +1 charge\n\nA missing input still spends the tick. Read the next six sunlight bonuses before acting.\n\nReset tools\nBellows\nMining makes one extra ore.\nPattern plate\nShaping makes one extra part.\nHow the forge works\nRead the daylight.\nThe sunlit station makes one extra unit on that tick.\nFinish six blueprints.\nEach beacon run has six 24-tick blueprints before you choose a tool.\nChoose each reset.\nKeep one new tool, then build the fifth and final beacon.\nWhat the forge does not do\n\nIt has no idle timers, offline income, or endless prestige layers. Progress changes only when you act.\n\nPrice and campaign length\n\nRun one is free. A $5 one-time purchase adds runs two through five. At least 400 decisions, planned at five seconds each, take 33.3 minutes.\n\nA five-run strategy forge with a sunset deadline.\n\nPrivacy · Terms · Built by Param Factory · v4.0.0\n\nBlueprint illustration uses original generated imagery.",
+      "storageKeys": [
+        "demo:finite-forge:v4",
+        "finite-forge:v4"
+      ]
+    },
+    "isolation": {
+      "prior": {
+        "real": "{\"campaign\":{\"run\":1,\"shift\":1,\"tick\":0,\"deadline\":24,\"goal\":13,\"stock\":{\"ore\":0,\"parts\":0,\"charge\":0},\"owned\":[],\"status\":\"active\",\"completedRuns\":0,\"completedShifts\":0,\"totalTicks\":0},\"settings\":{\"motion\":true,\"sound\":false}}",
+        "demo": "{\"campaign\":{\"run\":3,\"shift\":4,\"tick\":7,\"deadline\":24,\"goal\":18,\"stock\":{\"ore\":4,\"parts\":3,\"charge\":5},\"owned\":[\"bellows\",\"pattern\"],\"status\":\"active\",\"completedRuns\":2,\"completedShifts\":15,\"totalTicks\":278},\"settings\":{\"motion\":true,\"sound\":false},\"demoEntitled\":true}"
+      },
+      "afterAction": {
+        "real": "{\"campaign\":{\"run\":1,\"shift\":1,\"tick\":0,\"deadline\":24,\"goal\":13,\"stock\":{\"ore\":0,\"parts\":0,\"charge\":0},\"owned\":[],\"status\":\"active\",\"completedRuns\":0,\"completedShifts\":0,\"totalTicks\":0},\"settings\":{\"motion\":true,\"sound\":false}}",
+        "demo": "{\"campaign\":{\"run\":3,\"shift\":4,\"tick\":8,\"deadline\":24,\"goal\":18,\"stock\":{\"ore\":7,\"parts\":3,\"charge\":5},\"owned\":[\"bellows\",\"pattern\"],\"status\":\"active\",\"completedRuns\":2,\"completedShifts\":15,\"totalTicks\":279},\"settings\":{\"motion\":true,\"sound\":false},\"demoEntitled\":true}"
+      },
+      "afterReset": {
+        "real": "{\"campaign\":{\"run\":1,\"shift\":1,\"tick\":0,\"deadline\":24,\"goal\":13,\"stock\":{\"ore\":0,\"parts\":0,\"charge\":0},\"owned\":[],\"status\":\"active\",\"completedRuns\":0,\"completedShifts\":0,\"totalTicks\":0},\"settings\":{\"motion\":true,\"sound\":false}}",
+        "demo": "{\"campaign\":{\"run\":3,\"shift\":4,\"tick\":7,\"deadline\":24,\"goal\":18,\"stock\":{\"ore\":4,\"parts\":3,\"charge\":5},\"owned\":[\"bellows\",\"pattern\"],\"status\":\"active\",\"completedRuns\":2,\"completedShifts\":15,\"totalTicks\":278},\"settings\":{\"motion\":true,\"sound\":false},\"demoEntitled\":true}"
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "phone",
+    "status": 200,
+    "first": {
+      "title": "Finite Forge — Build a beacon before sunset",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "scrollY": 0,
+      "innerHeight": 664,
+      "bodyText": "Skip to game\nFINITE\n\nFORGE\nDemo\nHow it works\nPrivacy\n\nA finite strategy game\n\nBuild a beacon before sunset.\n\nFor reset fans who want a 30–45 minute campaign with a deadline.\n\nTry it with sample data\nOpens run three with stock and two tools.\n30 blueprints with 24 ticks each\nRun one free; $5 once for the full campaign\nProgress stays in this browser\nRUN 01 · BLUEPRINT 1/6 · 24 TICKS TO SUNSET\n\nCharge target: 13\n\nSettings\n0/30 blueprints complete\n\nBlueprint 1 sunset deadline\n\n24 ticks left\n\n0 / 24 production ticks used. Every action spends one tick.\n\nOre\n0\nParts\n0\nBeacon charge\n0 / 13\n\nDaylight forecast\n\nUse the sunlit station for +1\nTick 1\nMine ore +1\nTick 2\nCharge beacon +1\nTick 3\nShape parts +1\nTick 4\nMine ore +1\nTick 5\nCharge beacon +1\nTick 6\nShape parts +1\nM\nMine ore\n+2 ore\nS\nShape parts\n1 ore → +1 parts\nC\nCharge beacon\n1 part → +1 charge\n\nA missing input still spends the tick. Read the next six sunlight bonuses before acting.\n\nReset tools\n\nNo reset tools yet.\n\nHow the forge works\nRead the daylight.\nThe sunlit station makes one extra unit on that tick.\nFinish six blueprints.\nEach beacon run has six 24-tick blueprints before you choose a tool.\nChoose each reset.\nKeep one new tool, then build the fifth and final beacon.\nWhat the forge does not do\n\nIt has no idle timers, offline income, or endless prestige layers. Progress changes only when you act.\n\nPrice and campaign length\n\nRun one is free. A $5 one-time purchase adds runs two through five. At least 400 decisions, planned at",
+      "boardTop": null
+    },
+    "demo": {
+      "url": "https://finite-forge.sociobot.in/demo",
+      "banner": true,
+      "body": "Skip to game\nFINITE\n\nFORGE\nDemo\nHow it works\nPrivacy\nDemo — sample data, nothing is saved\nRun three starts stocked with two tools.\nReset demo\nStart for real\n\nA finite strategy game\n\nBuild a beacon before sunset.\n\nFor reset fans who want a 30–45 minute campaign with a deadline.\n\nTry it with sample data\nOpens run three with stock and two tools.\n30 blueprints with 24 ticks each\nRun one free; $5 once for the full campaign\nProgress stays in this browser\nRUN 03 · BLUEPRINT 4/6 · 17 TICKS TO SUNSET\n\nCharge target: 18\n\nSettings\n15/30 blueprints complete\n\nBlueprint 4 sunset deadline\n\n17 ticks left\n\n7 / 24 production ticks used. Every action spends one tick.\n\nOre\n4\nParts\n3\nBeacon charge\n5 / 18\n\nDaylight forecast\n\nUse the sunlit station for +1\nTick 8\nMine ore +1\nTick 9\nCharge beacon +1\nTick 10\nShape parts +1\nTick 11\nMine ore +1\nTick 12\nCharge beacon +1\nTick 13\nShape parts +1\nM\nMine ore\n+3 ore\nS\nShape parts\n1 ore → +2 parts\nC\nCharge beacon\n1 part → +1 charge\n\nA missing input still spends the tick. Read the next six sunlight bonuses before acting.\n\nReset tools\nBellows\nMining makes one extra ore.\nPattern plate\nShaping makes one extra part.\nHow the forge works\nRead the daylight.\nThe sunlit station makes one extra unit on that tick.\nFinish six blueprints.\nEach beacon run has six 24-tick blueprints before you choose a tool.\nChoose each reset.\nKeep one new tool, then build the fifth and final beacon.\nWhat the forge does not do\n\nIt has no idle timers, offline income, or endless prestige layers. Progress changes only when you act.\n\nPrice and campaign length\n\nRun one is free. A $5 one-time purchase adds runs two through five. At least 400 decisions, planned at five seconds each, take 33.3 minutes.\n\nA five-run strategy forge with a sunset deadline.\n\nPrivacy · Terms · Built by Param Factory · v4.0.0\n\nBlueprint illustration uses original generated imagery.",
+      "storageKeys": [
+        "demo:finite-forge:v4",
+        "finite-forge:v4"
+      ]
+    },
+    "isolation": {
+      "prior": {
+        "real": "{\"campaign\":{\"run\":1,\"shift\":1,\"tick\":0,\"deadline\":24,\"goal\":13,\"stock\":{\"ore\":0,\"parts\":0,\"charge\":0},\"owned\":[],\"status\":\"active\",\"completedRuns\":0,\"completedShifts\":0,\"totalTicks\":0},\"settings\":{\"motion\":true,\"sound\":false}}",
+        "demo": "{\"campaign\":{\"run\":3,\"shift\":4,\"tick\":7,\"deadline\":24,\"goal\":18,\"stock\":{\"ore\":4,\"parts\":3,\"charge\":5},\"owned\":[\"bellows\",\"pattern\"],\"status\":\"active\",\"completedRuns\":2,\"completedShifts\":15,\"totalTicks\":278},\"settings\":{\"motion\":true,\"sound\":false},\"demoEntitled\":true}"
+      },
+      "afterAction": {
+        "real": "{\"campaign\":{\"run\":1,\"shift\":1,\"tick\":0,\"deadline\":24,\"goal\":13,\"stock\":{\"ore\":0,\"parts\":0,\"charge\":0},\"owned\":[],\"status\":\"active\",\"completedRuns\":0,\"completedShifts\":0,\"totalTicks\":0},\"settings\":{\"motion\":true,\"sound\":false}}",
+        "demo": "{\"campaign\":{\"run\":3,\"shift\":4,\"tick\":8,\"deadline\":24,\"goal\":18,\"stock\":{\"ore\":7,\"parts\":3,\"charge\":5},\"owned\":[\"bellows\",\"pattern\"],\"status\":\"active\",\"completedRuns\":2,\"completedShifts\":15,\"totalTicks\":279},\"settings\":{\"motion\":true,\"sound\":false},\"demoEntitled\":true}"
+      },
+      "afterReset": {
+        "real": "{\"campaign\":{\"run\":1,\"shift\":1,\"tick\":0,\"deadline\":24,\"goal\":13,\"stock\":{\"ore\":0,\"parts\":0,\"charge\":0},\"owned\":[],\"status\":\"active\",\"completedRuns\":0,\"completedShifts\":0,\"totalTicks\":0},\"settings\":{\"motion\":true,\"sound\":false}}",
+        "demo": "{\"campaign\":{\"run\":3,\"shift\":4,\"tick\":7,\"deadline\":24,\"goal\":18,\"stock\":{\"ore\":4,\"parts\":3,\"charge\":5},\"owned\":[\"bellows\",\"pattern\"],\"status\":\"active\",\"completedRuns\":2,\"completedShifts\":15,\"totalTicks\":278},\"settings\":{\"motion\":true,\"sound\":false},\"demoEntitled\":true}"
+      }
+    },
+    "errors": []
+  }
+]

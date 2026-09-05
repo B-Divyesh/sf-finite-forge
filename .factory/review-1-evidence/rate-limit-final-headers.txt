@@ -1,0 +1,9 @@
+HTTP/2 429 
+date: Sat, 05 Sep 2026 22:31:08 GMT
+access-control-allow-credentials: true
+access-control-allow-origin: https://finite-forge.sociobot.in
+retry-after: 2
+vary: origin, access-control-request-method, access-control-request-headers
+content-length: 30
+x-ratelimit-after: 2
+

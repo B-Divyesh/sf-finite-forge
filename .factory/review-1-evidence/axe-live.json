@@ -1,0 +1,32 @@
+[
+  {
+    "route": "/",
+    "status": 200,
+    "title": "Finite Forge — Build a beacon before sunset",
+    "violations": []
+  },
+  {
+    "route": "/demo",
+    "status": 200,
+    "title": "Demo — Finite Forge",
+    "violations": []
+  },
+  {
+    "route": "/privacy",
+    "status": 200,
+    "title": "Privacy — Finite Forge",
+    "violations": []
+  },
+  {
+    "route": "/terms",
+    "status": 200,
+    "title": "Terms — Finite Forge",
+    "violations": []
+  },
+  {
+    "route": "/missing-plan",
+    "status": 404,
+    "title": "Not found — Finite Forge",
+    "violations": []
+  }
+]

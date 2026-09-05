@@ -1,0 +1,8 @@
+HTTP/2 303 
+date: Sat, 05 Sep 2026 22:31:07 GMT
+access-control-allow-credentials: true
+access-control-allow-origin: https://finite-forge.sociobot.in
+location: https://checkout.dodopayments.com/session/<redacted>
+vary: origin, access-control-request-method, access-control-request-headers
+content-length: 0
+
