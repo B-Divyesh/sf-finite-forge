@@ -1,0 +1,364 @@
+{
+  "config": {
+    "configFile": "/work/repo/.factory/verification-10-evidence/playwright.cross-engine.config.ts",
+    "rootDir": "/work/repo/.factory/verification-10-evidence",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/work/repo/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium-desktop",
+        "name": "chromium-desktop",
+        "testDir": "/work/repo/.factory/verification-10-evidence",
+        "testIgnore": [],
+        "testMatch": [
+          "cross-engine.spec.ts"
+        ],
+        "timeout": 180000
+      },
+      {
+        "outputDir": "/work/repo/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium-phone",
+        "name": "chromium-phone",
+        "testDir": "/work/repo/.factory/verification-10-evidence",
+        "testIgnore": [],
+        "testMatch": [
+          "cross-engine.spec.ts"
+        ],
+        "timeout": 180000
+      },
+      {
+        "outputDir": "/work/repo/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox-desktop",
+        "name": "firefox-desktop",
+        "testDir": "/work/repo/.factory/verification-10-evidence",
+        "testIgnore": [],
+        "testMatch": [
+          "cross-engine.spec.ts"
+        ],
+        "timeout": 180000
+      },
+      {
+        "outputDir": "/work/repo/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox-phone",
+        "name": "firefox-phone",
+        "testDir": "/work/repo/.factory/verification-10-evidence",
+        "testIgnore": [],
+        "testMatch": [
+          "cross-engine.spec.ts"
+        ],
+        "timeout": 180000
+      },
+      {
+        "outputDir": "/work/repo/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit-desktop",
+        "name": "webkit-desktop",
+        "testDir": "/work/repo/.factory/verification-10-evidence",
+        "testIgnore": [],
+        "testMatch": [
+          "cross-engine.spec.ts"
+        ],
+        "timeout": 180000
+      },
+      {
+        "outputDir": "/work/repo/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit-phone",
+        "name": "webkit-phone",
+        "testDir": "/work/repo/.factory/verification-10-evidence",
+        "testIgnore": [],
+        "testMatch": [
+          "cross-engine.spec.ts"
+        ],
+        "timeout": 180000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "cross-engine-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "runAgents": "none",
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.58.2",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "cross-engine.spec.ts",
+      "file": "cross-engine.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "fresh live session reaches the final ending and passes browser boundaries",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-desktop",
+              "projectName": "chromium-desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13263,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-06T07:09:15.126Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f55e008d3102a828d1ff-a88a104c0570b622cc0d",
+          "file": "cross-engine.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "fresh live session reaches the final ending and passes browser boundaries",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-phone",
+              "projectName": "chromium-phone",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 30480,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-06T07:09:29.738Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f55e008d3102a828d1ff-5a6315a00604868a2d2a",
+          "file": "cross-engine.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "fresh live session reaches the final ending and passes browser boundaries",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-desktop",
+              "projectName": "firefox-desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13841,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-06T07:10:01.649Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f55e008d3102a828d1ff-492c72d4acb38c0cd639",
+          "file": "cross-engine.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "fresh live session reaches the final ending and passes browser boundaries",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-phone",
+              "projectName": "firefox-phone",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 31497,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-06T07:10:17.824Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f55e008d3102a828d1ff-7b1270e7f2d0803481ce",
+          "file": "cross-engine.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "fresh live session reaches the final ending and passes browser boundaries",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-desktop",
+              "projectName": "webkit-desktop",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 21187,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-06T07:10:51.528Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f55e008d3102a828d1ff-5cb645e614146a02cf8a",
+          "file": "cross-engine.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "fresh live session reaches the final ending and passes browser boundaries",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-phone",
+              "projectName": "webkit-phone",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 35293,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-06T07:11:14.082Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f55e008d3102a828d1ff-87ab3a8825e53f8eea54",
+          "file": "cross-engine.spec.ts",
+          "line": 59,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-06T07:09:13.627Z",
+    "duration": 155902.138,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

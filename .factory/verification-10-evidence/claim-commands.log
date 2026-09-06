@@ -1,0 +1,279 @@
+
+CLAIM 01 campaign-final-ending
+COMMAND npx playwright test --grep @claim:campaign-final-ending
+
+Running 1 test using 1 worker
+(node:13790) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13790) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (7.9s)
+RESULT PASS campaign-final-ending
+
+CLAIM 02 restart-resets-state
+COMMAND npx playwright test --grep @claim:restart-resets-state
+
+Running 1 test using 1 worker
+(node:13892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (2.0s)
+RESULT PASS restart-resets-state
+
+CLAIM 03 sunset-deadline
+COMMAND npx playwright test --grep @claim:sunset-deadline
+
+Running 1 test using 1 worker
+(node:13990) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13990) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (2.2s)
+RESULT PASS sunset-deadline
+
+CLAIM 04 campaign-duration
+COMMAND npx vitest run --testNamePattern @claim:campaign-duration
+
+ RUN  v4.1.11 /work/repo
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 6 skipped (7)
+   Start at  07:14:36
+   Duration  1.26s (transform 57ms, setup 0ms, import 75ms, tests 1.03s, environment 0ms)
+
+RESULT PASS campaign-duration
+
+CLAIM 05 checkout-available
+COMMAND npx playwright test --grep @claim:checkout-available
+
+Running 1 test using 1 worker
+(node:14148) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14148) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (4.3s)
+RESULT PASS checkout-available
+
+CLAIM 06 campaign-unlock
+COMMAND npx playwright test --grep @claim:campaign-unlock
+
+Running 1 test using 1 worker
+(node:14255) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14255) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (1.9s)
+RESULT PASS campaign-unlock
+
+CLAIM 07 license-verification
+COMMAND npx playwright test --grep @claim:license-verification
+
+Running 1 test using 1 worker
+(node:14374) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14374) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (2.7s)
+RESULT PASS license-verification
+
+CLAIM 08 license-restore
+COMMAND npx playwright test --grep @claim:license-restore
+
+Running 1 test using 1 worker
+(node:14471) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14471) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (2.8s)
+RESULT PASS license-restore
+
+CLAIM 09 license-offline-cache
+COMMAND npx playwright test --grep @claim:license-offline-cache
+
+Running 1 test using 1 worker
+(node:14570) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14570) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (1.9s)
+RESULT PASS license-offline-cache
+
+CLAIM 10 license-daily-check
+COMMAND npx playwright test --grep @claim:license-daily-check
+
+Running 1 test using 1 worker
+(node:14667) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14667) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (2.1s)
+RESULT PASS license-daily-check
+
+CLAIM 11 license-revocation
+COMMAND npx playwright test --grep @claim:license-revocation
+
+Running 1 test using 1 worker
+(node:14770) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14770) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (2.2s)
+RESULT PASS license-revocation
+
+CLAIM 12 campaign-structure
+COMMAND npx playwright test --grep @claim:campaign-structure
+
+Running 1 test using 1 worker
+(node:14884) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14884) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (1.9s)
+RESULT PASS campaign-structure
+
+CLAIM 13 production-input
+COMMAND npx playwright test --grep @claim:production-input
+
+Running 1 test using 1 worker
+(node:14984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (2.1s)
+RESULT PASS production-input
+
+CLAIM 14 sunlight-bonus
+COMMAND npx playwright test --grep @claim:sunlight-bonus
+
+Running 1 test using 1 worker
+(node:15097) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15097) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (1.8s)
+RESULT PASS sunlight-bonus
+
+CLAIM 15 reset-tools
+COMMAND npx playwright test --grep @claim:reset-tools
+
+Running 1 test using 1 worker
+(node:15193) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15193) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (3.1s)
+RESULT PASS reset-tools
+
+CLAIM 16 demo-sandbox
+COMMAND npx playwright test --grep @claim:demo-sandbox
+
+Running 1 test using 1 worker
+(node:15289) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15289) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (2.0s)
+RESULT PASS demo-sandbox
+
+CLAIM 17 local-progress
+COMMAND npx playwright test --grep @claim:local-progress
+
+Running 1 test using 1 worker
+(node:15385) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15385) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (1.9s)
+RESULT PASS local-progress
+
+CLAIM 18 no-offline-income
+COMMAND npx playwright test --grep @claim:no-offline-income
+
+Running 1 test using 1 worker
+(node:15482) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15482) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (2.3s)
+RESULT PASS no-offline-income
+
+CLAIM 19 local-only
+COMMAND npx playwright test --grep @claim:local-only
+
+Running 1 test using 1 worker
+(node:15579) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15579) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (1.8s)
+RESULT PASS local-only
+
+CLAIM 20 settings-persist
+COMMAND npx playwright test --grep @claim:settings-persist
+
+Running 1 test using 1 worker
+(node:15675) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15675) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (2.1s)
+RESULT PASS settings-persist
+
+CLAIM 21 frame-rate-60
+COMMAND npx playwright test --grep @claim:frame-rate-60
+
+Running 1 test using 1 worker
+(node:15775) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15775) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (4.8s)
+RESULT PASS frame-rate-60
+
+CLAIM 22 retry-retains-tools
+COMMAND npx playwright test --grep @claim:retry-retains-tools
+
+Running 1 test using 1 worker
+(node:15876) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15876) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (2.1s)
+RESULT PASS retry-retains-tools
+
+CLAIM 23 generated-image-provenance
+COMMAND npx playwright test --grep @claim:generated-image-provenance
+
+Running 1 test using 1 worker
+(node:15973) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15973) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (1.8s)
+RESULT PASS generated-image-provenance
+
+ALL_DECLARED_CLAIM_COMMANDS_PASS 23

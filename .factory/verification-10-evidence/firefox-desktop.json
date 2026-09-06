@@ -1,0 +1,61 @@
+{
+  "project": "firefox-desktop",
+  "engineVersion": "146.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "firstScreenBoardTop": 754,
+  "input": "keyboard M/S/C",
+  "audio": "unmocked Web Audio cue initialized after enable-and-act gesture",
+  "fullCampaign": {
+    "status": "campaign-complete",
+    "runsVisible": "5 / 5",
+    "blueprintsVisible": "30 / 30",
+    "productionTicks": 419
+  },
+  "sampleResetAndIsolation": "pass",
+  "reloadRecovery": "pass",
+  "sunsetLossAndRetry": "pass",
+  "responsiveTargetsAndOverflow": {
+    "overflow": 0,
+    "smallTargets": []
+  },
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "title": "Finite Forge — Build a beacon before sunset",
+      "axeViolations": 0
+    },
+    {
+      "path": "/demo",
+      "status": 200,
+      "title": "Demo — Finite Forge",
+      "axeViolations": 0
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "title": "Privacy — Finite Forge",
+      "axeViolations": 0
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "title": "Terms — Finite Forge",
+      "axeViolations": 0
+    },
+    {
+      "path": "/missing-plan",
+      "status": 404,
+      "title": "Not found — Finite Forge",
+      "axeViolations": 0
+    }
+  ],
+  "offOriginRequestsBeforeLicense": [],
+  "unexpectedConsoleErrors": [],
+  "screenshotHarnessErrors": [],
+  "pageErrors": []
+}

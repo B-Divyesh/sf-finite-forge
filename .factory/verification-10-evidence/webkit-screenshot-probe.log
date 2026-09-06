@@ -1,0 +1,2 @@
+{"phase":"normal-live-load","errors":[]}
+{"phase":"after-playwright-screenshot","errors":["Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."]}

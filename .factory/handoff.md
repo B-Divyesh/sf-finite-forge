@@ -1,34 +1,28 @@
-# Finite Forge review 7 handoff
+# Finite Forge verification 10 handoff
 
 ## Result
 
 **PASS — 0 findings and 0 untested public claims.**
 
 The live runtime matches implementation candidate
-`c4cce27b42edb13501651aaae3f57f6fcdd0f3ea`. The exact hosted-checkout claim
-uses the test repair at `3b55ebf1fec72ec7ebe91f5dadf8006710087662`.
-Documentation was reviewed from baseline
-`bc1508cef8f51d644a1048bf8c45e3719250ad34`.
+`c4cce27b42edb13501651aaae3f57f6fcdd0f3ea`. The exact hosted-checkout test
+uses repair `3b55ebf1fec72ec7ebe91f5dadf8006710087662`. The reviewed documentation
+baseline is `46f0cb504e4776a6c1cdcc1c7797776de8b889b0`.
 
 ## What was verified
 
-- Fresh desktop and phone sessions showed the job, audience, first action, and
-  active game before scrolling. A tick-one real save stayed byte-for-byte
-  unchanged through sample entry, play, reset, and exit.
-- The one-click stocked sample, persistent label, separate demo storage,
-  reset, exit, loss/retry, settings, invalid and recovery paths, and the actual
-  five-run end screen passed.
-- All 23 declared claim commands passed separately from a fresh clean clone.
-  The full live suite passed 25/25; local tests passed 7 Vitest and 25
-  Playwright tests.
-- Checkout availability, invalid-license behavior, route titles, legal pages,
-  expected 404, links, privacy requests, keyboard/focus, reduced motion,
-  reflow, touch targets, and Axe passed.
-- Live JavaScript, CSS, blueprint image, 404, and robots byte-match the clean
-  production build. The supplied `verify-url.sh` passed live.
-- Mobile Lighthouse scored 100 for performance, accessibility, best practices,
-  and SEO. The frame-rate claim measured 60.002 fps with a 16.8 ms p95 at
-  390×844 under 4× CPU slowdown.
+- All 23 declared claim commands passed separately against the live URL.
+- Chromium 145.0.7632.6, Firefox 146.0.1, and WebKit 26.0 each completed the
+  five-run, 30-blueprint campaign on desktop and 390×844 touch-phone profiles.
+- Keyboard, touch, unmocked gesture-started Web Audio, save/reload, malformed
+  save recovery, sample isolation/reset/exit, loss/retry, final restart,
+  reduced motion, focus, routes, legal pages, privacy traffic, and 404 passed.
+- Axe was clean across every route and profile. `verify-url.sh` passed.
+- The invalid-license response and request-31 429 with `Retry-After: 3` passed.
+- Local and live Playwright suites passed 25/25. Build, typecheck, lint, and
+  both audits passed. Live files byte-match the clean production build.
+- Chromium at 390×844 and 4× CPU slowdown measured 60.004 fps with a 16.8 ms
+  p95. Lighthouse mobile scored 100 in all four categories.
 
 ## How to verify
 
@@ -41,13 +35,21 @@ npm run build
 npm audit --omit=dev
 npm audit
 BASE_URL=https://finite-forge.sociobot.in npx playwright test
+npx playwright test -c .factory/verification-10-evidence/playwright.cross-engine.config.ts
 ```
 
-Run each command in `.factory/claims.json` separately for strict claim
-verification. See `.factory/review-7.md` and `/work/.evidence/review-7/` for
-the report and recorded browser evidence.
+Run every `test` command in `.factory/claims.json` separately with `BASE_URL`
+set to the live URL for the strict claim gate. See
+`.factory/verification-10.md` and `.factory/verification-10-evidence/`.
+
+## Support boundaries
+
+The six profiles are pinned Playwright Linux engine builds, not branded mobile
+or macOS browser releases. No physical audio hardware was available; unmocked
+Web Audio initialization after a user gesture passed. The game advertises no
+multiplayer or offline application mode. No payment or real entitlement was
+created.
 
 ## Known gaps
 
-None found. No buyer data, payment, or real entitlement was attempted; payment
-settlement is not claimed as verified.
+None found within the public product claims.

@@ -1,0 +1,4 @@
+checkout: HTTP 303; location host checkout.dodopayments.com
+invalid license: HTTP 200; Cache-Control no-store; valid false; reason invalid
+CORS: Access-Control-Allow-Origin https://finite-forge.sociobot.in
+rate limit: request 31 returned HTTP 429; Retry-After 3

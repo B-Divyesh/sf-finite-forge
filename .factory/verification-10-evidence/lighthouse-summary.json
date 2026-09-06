@@ -1,0 +1,18 @@
+{
+  "lighthouseVersion": "13.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36",
+  "scores": {
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "fcp": 870.503,
+    "lcp": 1145.5030000000002,
+    "tbt": 15,
+    "cls": 0,
+    "speedIndex": 870.503
+  },
+  "transfer": 40107
+}
