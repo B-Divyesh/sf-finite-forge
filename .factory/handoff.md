@@ -1,4 +1,4 @@
-# Finite Forge review 5 handoff
+# Finite Forge review 6 handoff
 
 ## Result
 
@@ -8,7 +8,7 @@ The live runtime matches implementation candidate
 `c4cce27b42edb13501651aaae3f57f6fcdd0f3ea`. The exact hosted-checkout claim
 uses the test repair at `3b55ebf1fec72ec7ebe91f5dadf8006710087662`.
 Documentation was reviewed from baseline
-`49e311b9bc2eca407a52e8f5b693d75b6b04bb1e`.
+`46639d6dfef771fbd5225f3193f206a0033ee4fa`.
 
 ## What was verified
 
@@ -18,14 +18,17 @@ Documentation was reviewed from baseline
 - The one-click stocked sample, persistent label, separate demo storage,
   reset, exit, loss/retry, settings, invalid and recovery paths, and the actual
   five-run end screen passed.
-- All 23 declared claim commands passed separately from a new clone. The full
-  live suite passed 25/25; local tests passed 7 Vitest and 25 Playwright tests.
+- All 23 declared claim commands passed separately from a fresh detached
+  checkout. The full live suite passed 25/25; local tests passed 7 Vitest and
+  25 Playwright tests.
 - Checkout availability, invalid-license behavior, route titles, legal pages,
-  expected 404, links, privacy requests, keyboard/focus,
-  reduced motion, reflow, touch targets, Axe, and Lighthouse passed.
-- Live HTML, JavaScript, and CSS byte-match the clean production build.
-- Fresh mobile Lighthouse performance scored 99. The independent frame sample
-  measured 60.00 fps with a 16.8 ms p95 under 4× CPU slowdown.
+  expected 404, links, privacy requests, keyboard/focus, reduced motion,
+  reflow, touch targets, and Axe passed.
+- Live JavaScript, CSS, blueprint image, 404, and robots byte-match the clean
+  production build. The supplied `verify-url.sh` passed live.
+- Lighthouse 13.4.1 mobile scored 100 for performance, accessibility, best
+  practices, and SEO.
+- The frame-rate claim passed at 390×844 under 4× CPU slowdown.
 
 ## How to verify
 
@@ -41,7 +44,7 @@ BASE_URL=https://finite-forge.sociobot.in npx playwright test
 ```
 
 Run each command in `.factory/claims.json` separately for strict claim
-verification. See `.factory/review-5.md` and `/work/.evidence/review-5/` for
+verification. See `.factory/review-6.md` and `/work/.evidence/review-6/` for
 the report and recorded browser evidence.
 
 ## Known gaps
